@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Impulso Live Media | Agencia de Growth Vertical, Automatización &lt;15s y TikTok LIVE Creator Network</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body id="top">
+
+  <!-- FLOATING WHATSAPP DIRECT CTA (+52 56 6744 2715) -->
+  <a href="https://wa.me/525667442715?text=Hola%20Impulso%20Live%20Media%2C%20vengo%20de%20su%20p%C3%A1gina%20web%20y%20quiero%20informes." target="_blank" rel="noopener" class="wa-float">
+    <span>💬 WhatsApp Directo: 56 6744 2715</span>
+  </a>
+
+  <!-- STICKY NAVIGATION -->
+  <header class="site-header">
+    <div class="container nav-bar">
+      <button type="button" class="brand-logo" onclick="scrollToSection('top')">
+        <div class="logo-mark">IL</div>
+        <div class="brand-text">
+          <div class="brand-name">
+            IMPULSO LIVE MEDIA
+            <span class="live-pill"><span class="live-dot"></span> LIVE ECOSYSTEM</span>
+          </div>
+          <span class="brand-sub">Morelia &amp; México · Growth Vertical · SLA &lt;15s · Creator Network</span>
+        </div>
+      </button>
+
+      <ul class="nav-links">
+        <li><a href="#empresas">Soluciones B2B</a></li>
+        <li><a href="#reto-15s">Reto &lt;15s</a></li>
+        <li><a href="#paquetes">Paquetes</a></li>
+        <li><a href="#lead-automator-section">Lead Automator</a></li>
+        <li><a href="#creadores">Creator Network</a></li>
+        <li><a href="#formularios">Postular / Agendar</a></li>
+        <li><a href="#faq">FAQ</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <a href="#formularios" class="btn btn-outline">Soy Creador (0% Comisión)</a>
+        <a href="https://wa.me/525667442715?text=Hola%20Impulso%20Live%20Media%2C%20soy%20empresa%20y%20quiero%20escalar%20mis%20ventas%20con%20su%20sistema." target="_blank" rel="noopener" class="btn btn-primary">WhatsApp: 56 6744 2715</a>
+        <button type="button" id="mobile-nav-toggle" class="mobile-menu-btn" onclick="toggleMobileNav()">☰ Menú</button>
+      </div>
+    </div>
+
+    <!-- MOBILE NAVIGATION DRAWER -->
+    <div id="mobile-nav-drawer" class="mobile-nav-drawer">
+      <ul class="mobile-nav-list">
+        <li><a href="#empresas" onclick="closeMobileNav()">🏢 Soluciones B2B</a></li>
+        <li><a href="#reto-15s" onclick="closeMobileNav()">⏱️ Reto &lt;15 Segundos</a></li>
+        <li><a href="#paquetes" onclick="closeMobileNav()">💼 Paquetes y Precios</a></li>
+        <li><a href="#lead-automator-section" onclick="closeMobileNav()">⚡ Motor Lead Automator</a></li>
+        <li><a href="#creadores" onclick="closeMobileNav()">🔥 Creator Network</a></li>
+        <li><a href="#calculadora-live" onclick="closeMobileNav()">🧮 Calculadora LIVE</a></li>
+        <li><a href="#formularios" onclick="closeMobileNav()">📝 Formularios de Ingreso</a></li>
+        <li><a href="#faq" onclick="closeMobileNav()">❓ Preguntas Frecuentes</a></li>
+      </ul>
+      <a href="#formularios" onclick="closeMobileNav()" class="btn btn-pink" style="width:100%;">Postular como Creador o Agendar Empresa →</a>
+    </div>
+
+    <!-- AUDIENCE VIEW FILTER -->
+    <div class="audience-bar">
+      <div class="container audience-bar-inner">
+        <span style="color: var(--text-muted); font-weight: 700;">Filtrar vista por perfil:</span>
+        <button type="button" class="mode-btn active" onclick="setSiteMode('all', this)">Ecosistema Completo (Dual)</button>
+        <button type="button" class="mode-btn" onclick="setSiteMode('b2b', this)">Solo Empresas (Inmobiliario, Clínicas y E-commerce)</button>
+        <button type="button" class="mode-btn" onclick="setSiteMode('creator', this)">Solo Creadores y Streamers (TikTok LIVE)</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO SECTION -->
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        <div class="eyebrow">⚡ Agencia de Growth Vertical, Automatización &lt;15s y Red Oficial de Talentos</div>
+        <h1>
+          Convertimos la <span class="gradient-pink">atención en vivo</span> y el video vertical en <span class="gradient-cyan">ventas reales, citas calificadas</span> y creadores rentables.
+        </h1>
+        <p class="hero-lead">
+          En <strong>Impulso Live Media</strong> unimos bajo un mismo techo los tres motores que las agencias tradicionales operan desconectados: <strong>producción vertical de 15 a 25 segundos con retención auditada</strong>, <strong>transmisiones en vivo de alto impacto (TikTok LIVE &amp; Live Shopping)</strong> y <strong>calificación automática en WhatsApp en menos de 15 segundos</strong> mediante nuestro motor propio <strong>Lead Automator</strong>.
+        </p>
+
+        <div id="hero-dual-cards" class="dual-cards">
+          <div class="route-card b2b b2b-only-block">
+            <div>
+              <div class="route-tag">Ruta A · Empresas, Desarrollos y Clínicas</div>
+              <h3>¿Buscas prospectos calificados y citas reales?</h3>
+              <p>
+                Producimos anuncios con retención superior al 50% en el segundo 3, operamos tu pauta en TikTok y Meta Ads y conectamos cada lead directo a tu WhatsApp en <strong>menos de 15 segundos</strong> con pre-filtro de liquidez y <strong>Pase QR Anti-Plantones</strong>.
+              </p>
+            </div>
+            <a href="#reto-15s" class="btn btn-primary" style="width:100%;">Probar Bot en Vivo y Ver Paquetes →</a>
+          </div>
+
+          <div class="route-card creator creator-only-block">
+            <div>
+              <div class="route-tag">Ruta B · Streamers y Creadores TikTok LIVE</div>
+              <h3>¿Quieres monetizar tus directos en TikTok LIVE?</h3>
+              <p>
+                Únete gratis al roster oficial de <strong>Impulso Live Media</strong> con <strong>0% de comisión sobre tus Diamantes</strong>. Recibe coaching de misiones (hasta ~53% de retorno), batallas PK programadas, blindaje de cuenta y campañas pagadas con nuestras marcas.
+              </p>
+            </div>
+            <a href="#creadores" class="btn btn-pink" style="width:100%;">Aplicar al Roster en 60 Segundos →</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- INTERACTIVE PHONE SIMULATOR -->
+      <div class="phone-showcase">
+        <div class="phone-tabs">
+          <button type="button" id="tab-btn-b2b" class="phone-tab-btn active" onclick="switchPhoneSim('b2b', this)">📲 Simulador B2B (&lt;15s)</button>
+          <button type="button" id="tab-btn-live" class="phone-tab-btn" onclick="switchPhoneSim('live', this)">🔴 Simulador Sala LIVE PK</button>
+        </div>
+
+        <!-- PHONE SCREEN 1: B2B AUTOMATION -->
+        <div id="phone-sim-b2b" class="phone-screen">
+          <div>
+            <div class="sim-badge-row">
+              <span style="color: var(--accent-cyan); font-weight:700;">● Spark Ad Activo (3 Hooks)</span>
+              <span style="color: var(--text-muted);">Segundo 17 / 22s (Pico CTR)</span>
+            </div>
+
+            <div class="retention-box">
+              <div style="display:flex; justify-content:space-between; font-size:0.75rem;">
+                <span>Retención al Segundo 3 (Hook Visual)</span>
+                <strong style="color: var(--accent-emerald);">58% (Supera meta de 40%)</strong>
+              </div>
+              <div class="retention-bar-track">
+                <div class="retention-bar-fill"></div>
+              </div>
+              <div style="font-size:0.71rem; color: var(--text-muted);">
+                Estructura Impulso Live Media de 15–25s con CTA al 75% del video
+              </div>
+            </div>
+
+            <div class="whatsapp-toast">
+              <div class="whatsapp-header">
+                <span>💬 Lead Automator · 56 6744 2715</span>
+                <span>SLA: 00:03.8 seg</span>
+              </div>
+              <div class="whatsapp-body">
+                "¡Hola, Carlos! Recibimos tu solicitud en Altozano con <strong>Crédito Bancario Autorizado</strong>. Aquí tienes el video recorrido de 40s en 4K y tu <strong>Pase QR VIP</strong> para tu visita..."
+              </div>
+            </div>
+
+            <div style="background: rgba(0, 242, 254, 0.08); border: 1px solid rgba(0, 242, 254, 0.25); border-radius: 12px; padding: 10px 12px; font-size: 0.77rem;">
+              <div style="font-weight: 800; color: var(--accent-cyan); margin-bottom: 3px;">🟢 Semáforo Comercial: SCORE A (Lead Caliente)</div>
+              <div style="color: var(--text-secondary);">Enrutado a Cerrador Senior en &lt;5 min · Asistencia con Pase QR: <strong>75%</strong></div>
+            </div>
+          </div>
+
+          <a href="#reto-15s" class="btn btn-primary" style="width:100%; margin-top:12px; font-size:0.81rem;">
+            Ejecutar Prueba Real de 15 Segundos Abajo ↓
+          </a>
+        </div>
+
+        <!-- PHONE SCREEN 2: TIKTOK LIVE PK & SHOP -->
+        <div id="phone-sim-live" class="phone-screen" style="display:none;">
+          <div>
+            <div class="sim-badge-row">
+              <span class="live-pill"><span class="live-dot"></span> EN VIVO · 1,840 viendo</span>
+              <span style="color: var(--accent-amber); font-weight:700;">⚡ Misión 25+ min (~53% Rewards)</span>
+            </div>
+
+            <div style="display:flex; justify-content:space-between; align-items:center; font-size:0.76rem; font-weight:700; margin-bottom:4px;">
+              <span>🥊 BATALLA PK OFICIAL</span>
+              <span id="pk-timer-label" style="color:var(--accent-cyan); font-variant-numeric:tabular-nums;">02:45 restantes</span>
+            </div>
+
+            <div class="pk-score-bar">
+              <div id="pk-red-bar" class="pk-red" style="width: 54%;">@impulso.host · <span id="pk-red-score" style="margin-left:4px;">4,420</span></div>
+              <div class="pk-blue"><span id="pk-blue-score" style="margin-right:4px;">3,890</span> · @rival.live</div>
+            </div>
+
+            <div id="pk-event-feed" style="background: rgba(255, 255, 255, 0.04); border-radius: 12px; padding: 10px 12px; font-size: 0.76rem; margin-bottom: 10px; min-height: 76px;">
+              <div style="color: #ff85ad; font-weight:700;">🥊 Boosting Glove Listo (30s de probabilidad x5 puntos)</div>
+              <div style="color: var(--text-secondary); margin-top:4px;">💬 <strong>martha_vip:</strong> ¡Listos para activar combo en el cierre de batalla! 🦁💎</div>
+            </div>
+
+            <div style="background: rgba(245, 158, 11, 0.12); border: 1px solid rgba(245, 158, 11, 0.35); border-radius: 12px; padding: 10px 12px; font-size: 0.76rem;">
+              <div style="font-weight:800; color: var(--accent-amber);">🛍️ Showroom Activo en Vivo (Live Shopping)</div>
+              <div style="color: var(--text-primary); margin-top:2px;">Oferta Relámpago Fijada · <strong>18 cierres en la última hora</strong> (Comisión + Pago por Campaña)</div>
+            </div>
+          </div>
+
+          <div style="display:grid; grid-template-columns: 1fr 1fr; gap:6px; margin-top:10px;">
+            <button type="button" class="btn btn-pink" style="padding:7px 8px; font-size:0.73rem;" onclick="simulateGift('lion')">🦁 Enviar León (+500 pts)</button>
+            <button type="button" class="btn btn-outline" style="padding:7px 8px; font-size:0.73rem;" onclick="simulateGift('glove')">🥊 Activar Guante x5</button>
+            <button type="button" class="btn btn-ghost" style="padding:7px 8px; font-size:0.73rem;" onclick="simulateGift('time')">⏱️ Time Maker (+10s)</button>
+            <button type="button" class="btn btn-ghost" style="padding:7px 8px; font-size:0.73rem;" onclick="simulateGift('reset')">🔄 Reiniciar Duelo</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- METRICS RIBBON -->
+  <section class="metrics-ribbon">
+    <div class="container metrics-grid">
+      <div class="metric-card b2b-only-block">
+        <div class="metric-val">&lt; 15 Segundos</div>
+        <div class="metric-label">Tiempo máximo en que nuestro motor <strong>Lead Automator</strong> responde, filtra liquidez y envía recorrido por WhatsApp.</div>
+        <div class="metric-source">Estándar SLA Impulso Live Media · Morelia y México</div>
+      </div>
+
+      <div class="metric-card b2b-only-block">
+        <div class="metric-val">15 a 25 Seg</div>
+        <div class="metric-label">Ventana exacta donde se concentra el mayor CTR con el llamado a la acción ubicado al 75%–80% del video.</div>
+        <div class="metric-source">Benchmark validado en +24,000 anuncios verticales</div>
+      </div>
+
+      <div class="metric-card b2b-only-block">
+        <div class="metric-val">84% y +33%</div>
+        <div class="metric-label">84% de los compradores investiga en video vertical antes de decidir y los anuncios hablados a cámara convierten 33% más.</div>
+        <div class="metric-source">Arquitectura Spark Ads con Roster Propio</div>
+      </div>
+
+      <div class="metric-card pink creator-only-block">
+        <div class="metric-val">Hasta ~53%</div>
+        <div class="metric-label">Retorno en <em>Scaled LIVE Rewards</em> desbloqueado con sesiones de 25+ min y <strong>0% comisión sobre tus Diamantes</strong>.</div>
+        <div class="metric-source">Impulso Live Creator Network Oficial</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DIVISION B2B: EMPRESAS, INMOBILIARIO Y E-COMMERCE -->
+  <section id="empresas" class="section b2b-section b2b-only-block">
+    <div class="container">
+      <div class="section-header">
+        <div class="eyebrow">🏢 División Empresas · Desarrollos Inmobiliarios, Clínicas y E-commerce</div>
+        <h2 class="section-title">Las vistas no pagan la nómina: por qué el 70% de los presupuestos publicitarios se pierde en los primeros 3 segundos.</h2>
+        <p class="section-desc">
+          Dividir tu crecimiento entre un editor de video sin estructura comercial, un trafficker externo y un equipo de ventas que tarda horas en contestar rompe tu retorno de inversión. Si tu anuncio cae del 40% de retención al segundo 3 o supera los 25 segundos sin gancho, pierdes hasta al 80% de tus compradores. En <strong>Impulso Live Media</strong> integramos creatividad, pauta, talento en vivo y automatización en un solo sistema.
+        </p>
+      </div>
+
+      <!-- INTERACTIVE SECTOR TABS -->
+      <div class="sector-tabs">
+        <button type="button" class="sector-tab active" onclick="switchSectorTab('inmobiliario', this)">
+          🏡 Sector 1: Desarrollos Inmobiliarios, Constructoras y Alto Ticket
+        </button>
+        <button type="button" class="sector-tab" onclick="switchSectorTab('ecommerce', this)">
+          🛍️ Sector 2: Clínicas Especializadas, E-commerce y Negocios Locales
+        </button>
+      </div>
+
+      <!-- PANEL 1: INMOBILIARIO & ALTO TICKET -->
+      <div id="sector-inmobiliario" class="sector-panel active">
+        <h3 style="font-size:1.3rem; margin-bottom:8px;">Sistema Integral de Captación, Calificación Crediticia y Asistencia a Caseta</h3>
+        <p style="color:var(--text-secondary); font-size:0.92rem;">
+          Diseñado para desarrolladoras, fraccionamientos e inmobiliarias en Morelia y todo México que buscan eliminar curiosos y recibir citas con capacidad real de compra:
+        </p>
+        <div class="feature-grid">
+          <div class="feature-box">
+            <h4>🎬 1. Guiones Verticales "3 Hooks, 1 Cuerpo" (18–25s)</h4>
+            <p>Grabamos recorridos dinámicos en 4K con 3 ganchos iniciales distintos (primeros 3.5 seg) para atacar micro-segmentos: derechohabientes (Infonavit/FOVISSSTE), crédito bancario/inversionistas y mercado paisano en EE. UU.</p>
+          </div>
+          <div class="feature-box">
+            <h4>🛡️ 2. Pre-Filtro Nativo de Liquidez y Plazo</h4>
+            <p>Eliminamos el tráfico basura hacia tu WhatsApp. El formulario nativo valida cómo planea adquirir la propiedad (Contado, Bancario, Infonavit) y en qué plazo busca escriturar antes de registrar el contacto.</p>
+          </div>
+          <div class="feature-box">
+            <h4>⚡ 3. Conexión Lead Automator en &lt;15s y Semáforo</h4>
+            <p>Nuestro motor propio <strong>Lead Automator</strong> envía en menos de 15 segundos un WhatsApp personalizado con video recorrido de 40s y clasifica al prospecto en <strong>Score A</strong> (Cerrador Senior &lt;5 min), <strong>Score B</strong> (Broker) o <strong>Score C</strong> (Nutrición).</p>
+          </div>
+          <div class="feature-box">
+            <h4>📲 4. Live Open Houses y Pase QR Anti-Plantones (75% Show-up)</h4>
+            <p>Producimos recorridos interactivos en TikTok LIVE desde tu desarrollo y activamos el protocolo de confirmación con ubicación en Maps, <strong>Pase QR VIP de acceso en caseta</strong> 24h antes y recordatorio humano 3h antes.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- PANEL 2: E-COMMERCE & LOCAL BUSINESS -->
+      <div id="sector-ecommerce" class="sector-panel">
+        <h3 style="font-size:1.3rem; margin-bottom:8px;">Velocidad Creativa, Spark Ads con Roster Propio, Live Shopping y Cierre en WhatsApp</h3>
+        <p style="color:var(--text-secondary); font-size:0.92rem;">
+          Para clínicas de estética y salud en Altozano/Morelia, tiendas en línea, restaurantes y marcas que buscan transformar reproducciones en pacientes y pedidos diarios:
+        </p>
+        <div class="feature-grid">
+          <div class="feature-box">
+            <h4>🤳 1. Spark Ads con Creadores de Nuestro Roster (+40% Engagement)</h4>
+            <p>Los videos hablados a cámara convierten un <strong>33% mejor</strong> y los anuncios con rostro real superan en más de <strong>40% el engagement</strong> frente a flyers corporativos. Nuestros creadores graban por ti sin quitarte tiempo operativo.</p>
+          </div>
+          <div class="feature-box">
+            <h4>🎯 2. Anclaje en 5s y Llamado a la Acción al 75% del Video</h4>
+            <p>Estructuramos anuncios de 15 a 25 segundos donde el tratamiento o producto aparece en los primeros 3 segundos, anclamos el beneficio antes del segundo 5 y lanzamos el llamado a la acción en el pico exacto de clics (segundo 15 a 19).</p>
+          </div>
+          <div class="feature-box">
+            <h4>🔴 3. Showrooms en Directo y Live Shopping</h4>
+            <p>Convertimos tu clínica, tienda física o catálogo en un evento de ventas en vivo en TikTok LIVE, demostrando procedimientos o productos y respondiendo objeciones en tiempo real para disparar citas y pedidos.</p>
+          </div>
+          <div class="feature-box">
+            <h4>📊 4. Higiene de Pixel, API de Conversiones (CAPI) y Bot &lt;15s</h4>
+            <p>Configuramos atribución limpia de extremo a extremo y conectamos <strong>Lead Automator</strong> a tu WhatsApp Business para entregar promociones, catálogos y pases de valoración en menos de 15 segundos.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- COMPARISON TABLE -->
+      <div class="table-wrap">
+        <table class="comp-table">
+          <thead>
+            <tr>
+              <th>Criterio Operativo</th>
+              <th>Agencia Tradicional / Community Manager</th>
+              <th>Trafficker / Freelancer Aislado</th>
+              <th class="highlight-col">🚀 Ecosistema Impulso Live Media</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Producción de Video Vertical</strong></td>
+              <td>Flyers estáticos o videos largos sin gancho en los primeros 3 seg</td>
+              <td>Depende de que el cliente grabe y le entregue el material</td>
+              <td class="highlight-col"><strong>Guiones y producción in-house de 15 a 25s ("3 Hooks, 1 Cuerpo")</strong> con retención auditada al segundo 3</td>
+            </tr>
+            <tr>
+              <td><strong>Talento frente a Cámara y LIVE</strong></td>
+              <td>No incluido o subcontratado a costos elevados</td>
+              <td>No incluido</td>
+              <td class="highlight-col"><strong>Roster propio de creadores y streamers en Morelia y México</strong> para UGC, Spark Ads y Live Shopping</td>
+            </tr>
+            <tr>
+              <td><strong>Velocidad de Respuesta al Lead</strong></td>
+              <td>Manual (de 2 a 24 horas después de pedir informes)</td>
+              <td>Fuera de su alcance (solo entrega un Excel de contactos)</td>
+              <td class="highlight-col"><strong>Automático en &lt;15 segundos vía Lead Automator y WhatsApp API</strong> con pre-filtro de liquidez</td>
+            </tr>
+            <tr>
+              <td><strong>Métrica Principal de Éxito</strong></td>
+              <td>Likes, seguidores y publicaciones por mes</td>
+              <td>Costo por clic (CPC) sin validar si el lead califica</td>
+              <td class="highlight-col"><strong>Leads calificados (Score A/B), citas asistidas con Pase QR (75% show-up) y cierres</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- INTERACTIVE 15-SECOND CHALLENGE -->
+      <div id="reto-15s" class="challenge-card">
+        <div class="challenge-grid">
+          <div>
+            <div class="eyebrow">⏱️ Demostración Interactiva en Tiempo Real</div>
+            <h3 style="font-size:1.55rem; font-weight:900; margin-bottom:10px;">Pon a prueba nuestro SLA: El Reto de los 15 Segundos</h3>
+            <p style="color:var(--text-secondary); font-size:0.91rem; margin-bottom:16px;">
+              Simula el registro de un prospecto real en tus anuncios. Ingresa tu nombre, elige tu giro comercial y activa el cronómetro para ver cómo nuestro motor <strong>Lead Automator</strong> procesa el Webhook, asigna el Score comercial y dispara el WhatsApp hacia el <strong>56 6744 2715</strong> en menos de 15 segundos.
+            </p>
+
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-bottom:10px;">
+              <input id="sim-name" type="text" class="form-control" placeholder="Tu Nombre (ej. Elmer)" value="Elmer" />
+              <select id="sim-sector" class="form-control">
+                <option value="inmobiliario">Desarrollo Inmobiliario / Alto Ticket</option>
+                <option value="ecommerce">Clínica / E-commerce / Negocio Local</option>
+              </select>
+            </div>
+            <div style="margin-bottom:14px;">
+              <select id="sim-filter" class="form-control">
+                <option value="Contado / Crédito Bancario Autorizado (Plazo <30 días)">Pre-filtro: Contado / Crédito Bancario Autorizado (Plazo &lt;30 días)</option>
+                <option value="Infonavit / FOVISSSTE (Requiere precalificación exprés)">Pre-filtro: Infonavit / FOVISSSTE (Requiere precalificación exprés)</option>
+                <option value="Cita de Valoración / Compra con Bono Live Shopping">Pre-filtro: Cita de Valoración / Compra con Bono Live Shopping</option>
+              </select>
+            </div>
+
+            <button type="button" id="sim-trigger-btn" class="btn btn-primary" style="width:100%;" onclick="run15SecChallenge()">
+              🚀 Disparar Simulación de Webhook (&lt;15 Segundos)
+            </button>
+          </div>
+
+          <div style="background: var(--bg-main); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 20px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; flex-wrap:wrap; gap:6px;">
+              <span style="font-size:0.78rem; color:var(--text-secondary); font-weight:700;">CRONÓMETRO SLA LEAD AUTOMATOR</span>
+              <span id="sim-status-badge" class="live-pill" style="background:rgba(0,242,254,0.15); color:var(--accent-cyan); border-color:rgba(0,242,254,0.35);">LISTO PARA PROBAR</span>
+            </div>
+
+            <div id="sim-timer" class="timer-display">00:00.0s</div>
+
+            <div class="pipeline-steps">
+              <div id="pipe-1" class="pipe-step">1. Lead Form</div>
+              <div id="pipe-2" class="pipe-step">2. Webhook API</div>
+              <div id="pipe-3" class="pipe-step">3. Score A/B/C</div>
+              <div id="pipe-4" class="pipe-step">4. WhatsApp &lt;15s</div>
+            </div>
+
+            <div id="sim-output" style="font-size:0.83rem; color:var(--text-secondary); background:var(--bg-card); padding:13px; border-radius:10px; border:1px solid var(--border-subtle); min-height:118px;">
+              Haz clic en <strong>"Disparar Simulación de Webhook"</strong> para observar el recorrido técnico de <strong>Lead Automator</strong> y el mensaje exacto de WhatsApp generado en tiempo real.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- INTERACTIVE B2B ROI CALCULATOR -->
+      <div class="calc-card">
+        <div class="eyebrow">📈 Simulador Financiero de Embudo B2B</div>
+        <h3 style="font-size:1.4rem; font-weight:900; margin-bottom:8px;">Calculadora de Retorno y Citas Asistidas (Meta Ads 70% + TikTok Ads 30%)</h3>
+        <p style="color:var(--text-secondary); font-size:0.89rem; margin-bottom:22px;">
+          Proyección basada en nuestras métricas operativas en Morelia y México (CPL promedio de $70 a $140 MXN, 35% de leads calificados Score A/B, 70%–75% de asistencia con Protocolo Pase QR y 12%–15% de cierre sobre visita):
+        </p>
+
+        <div class="calc-grid">
+          <div>
+            <div class="slider-group">
+              <label>
+                <span>Inversión Mensual en Pauta Publicitaria (MXN):</span>
+                <span id="b2b-budget-val" style="color:var(--accent-cyan);">$20,000 MXN</span>
+              </label>
+              <input id="b2b-budget" type="range" min="10000" max="100000" step="2500" value="20000" oninput="updateB2BCalc()" />
+            </div>
+
+            <div class="slider-group">
+              <label>
+                <span>Costo por Lead (CPL) Estimado según Temporada:</span>
+                <span id="b2b-cpl-val" style="color:var(--accent-cyan);">$95 MXN</span>
+              </label>
+              <input id="b2b-cpl" type="range" min="70" max="140" step="5" value="95" oninput="updateB2BCalc()" />
+            </div>
+          </div>
+
+          <div class="calc-results">
+            <div class="calc-stat">
+              <div id="res-total-leads" class="num" style="color:var(--accent-cyan);">~211</div>
+              <div class="lbl">Leads Totales Captados / Mes</div>
+            </div>
+            <div class="calc-stat">
+              <div id="res-qual-leads" class="num" style="color:var(--accent-cyan);">74</div>
+              <div class="lbl">Leads Calificados (Score A/B · 35%)</div>
+            </div>
+            <div class="calc-stat">
+              <div id="res-showup" class="num">52</div>
+              <div class="lbl">Visitas / Citas Asistidas (70% Show-up)</div>
+            </div>
+            <div class="calc-stat">
+              <div id="res-closings" class="num">6 a 8</div>
+              <div class="lbl">Cierres / Apartados Estimados (12%–15%)</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- COMMERCIAL PACKAGES & PRICING SECTION -->
+      <div id="paquetes" style="margin-top: 56px;">
+        <div class="section-header" style="margin-bottom: 24px;">
+          <div class="eyebrow">💼 Paquetes Comerciales e Inversión B2B</div>
+          <h3 class="section-title" style="font-size: clamp(1.4rem, 2.3vw, 2rem);">Contratar por separado un editor, un trafficker, creadores UGC y un programador de bots cuesta entre $24,000 y $39,000 MXN/mes.</h3>
+          <p class="section-desc">
+            Elige el paquete que mejor se adapte a la etapa actual de tu empresa o arranca con nuestro <strong>Sprint Rompe-Hielo de 10 Días</strong> para dejar instalado tu embudo y bot de 15 segundos esta misma semana:
+          </p>
+        </div>
+
+        <div class="pricing-grid">
+          <!-- SPRINT 10 DIAS -->
+          <div class="price-card sprint">
+            <div>
+              <span class="price-badge" style="background:rgba(245,158,11,0.16); color:var(--accent-amber); border:1px solid rgba(245,158,11,0.4);">⚡ Oferta Rompe-Hielo</span>
+              <h4 style="font-size:1.08rem;">Sprint de Instalación en 10 Días</h4>
+              <div class="price-amount">$4,900 <span style="font-size:0.85rem; font-weight:600;">MXN</span></div>
+              <div class="price-period">Pago único de validación (Abonable a tu Mes 1)</div>
+              <ul class="price-list">
+                <li>Auditoría técnica de cuentas y embudo actual</li>
+                <li>Grabación y edición de <strong>1 Cuerpo + 3 Hooks (18–25s)</strong></li>
+                <li>Formulario nativo con pre-filtro + conexión <strong>Lead Automator (&lt;15s)</strong></li>
+                <li>14 días de campaña activa para validar CPL y citas reales</li>
+              </ul>
+            </div>
+            <button type="button" class="btn btn-ghost" style="width:100%; border-color:var(--accent-amber); color:var(--accent-amber);" onclick="selectPackage('sprint')">
+              Elegir Sprint 10 Días →
+            </button>
+          </div>
+
+          <!-- PLAN 1: ARRANQUE -->
+          <div class="price-card">
+            <div>
+              <span class="price-badge" style="background:rgba(255,255,255,0.06); color:var(--text-secondary);">Plan 1 · Negocios y Clínicas</span>
+              <h4 style="font-size:1.08rem;">Impulso Arranque</h4>
+              <div class="price-amount">$8,500 <span style="font-size:0.85rem; font-weight:600;">MXN/mes</span></div>
+              <div class="price-period">+ Pauta directa sugerida ($10k–$15k MXN)</div>
+              <ul class="price-list">
+                <li><strong>8 videos verticales/mes</strong> (15–25s) en 1 sesión mensual</li>
+                <li><strong>1 creador UGC de nuestro roster</strong> en 2 anuncios clave</li>
+                <li>Gestión de pauta en 1 canal (Meta Ads o TikTok Ads) + Retargeting</li>
+                <li>Conexión <strong>Lead Automator</strong> a WhatsApp en <strong>&lt;15 segundos</strong></li>
+              </ul>
+            </div>
+            <button type="button" class="btn btn-ghost" style="width:100%;" onclick="selectPackage('plan1')">
+              Elegir Plan Arranque →
+            </button>
+          </div>
+
+          <!-- PLAN 2: GROWTH 360 -->
+          <div class="price-card featured">
+            <div>
+              <span class="price-badge" style="background:rgba(0,242,254,0.16); color:var(--accent-cyan); border:1px solid rgba(0,242,254,0.4);">⭐ Más Vendido · Inmobiliario y Alto Ticket</span>
+              <h4 style="font-size:1.08rem;">Impulso Growth 360°</h4>
+              <div class="price-amount">$14,500 <span style="font-size:0.85rem; font-weight:600;">MXN/mes</span></div>
+              <div class="price-period">+ Pauta directa sugerida ($18k–$35k MXN)</div>
+              <ul class="price-list">
+                <li><strong>12 a 15 piezas verticales/mes</strong> con técnica <strong>"3 Hooks, 1 Cuerpo"</strong></li>
+                <li><strong>1 a 2 creadores del roster</strong> incluidos para Spark Ads</li>
+                <li><strong>Omnicanal: Meta Ads (70%) + TikTok Ads (30%)</strong></li>
+                <li><strong>Lead Automator &lt;15s</strong> + Score A/B/C + <strong>Pase QR (75% show-up)</strong></li>
+                <li><strong>2 sesiones mensuales (35 min)</strong> de <em>Live Open House / Shopping</em></li>
+              </ul>
+            </div>
+            <button type="button" class="btn btn-primary" style="width:100%;" onclick="selectPackage('plan2')">
+              Elegir Plan Growth 360° →
+            </button>
+          </div>
+
+          <!-- PLAN 3: LIVE PARTNER -->
+          <div class="price-card">
+            <div>
+              <span class="price-badge" style="background:rgba(255,0,80,0.16); color:#ff4d84; border:1px solid rgba(255,0,80,0.35);">Plan 3 · Escala Corporativa</span>
+              <h4 style="font-size:1.08rem;">Impulso Live Partner</h4>
+              <div class="price-amount">$22,500 <span style="font-size:0.85rem; font-weight:600;">MXN/mes</span></div>
+              <div class="price-period">O $16,500 MXN base + bono por cierre</div>
+              <ul class="price-list">
+                <li><strong>20 a 24 piezas verticales/mes</strong> con pruebas semanales al seg 3</li>
+                <li><strong>Equipo de 2 a 3 creadores</strong> dedicados del roster</li>
+                <li>Omnicanal Full-Funnel + Higiene Pixel, CAPI y UTMs</li>
+                <li><strong>4 sesiones mensuales (1/sem)</strong> de <em>Live Shopping / Open House</em></li>
+                <li>Entrenamiento y auditoría semanal a tus cerradores</li>
+              </ul>
+            </div>
+            <button type="button" class="btn btn-ghost" style="width:100%;" onclick="selectPackage('plan3')">
+              Elegir Plan Live Partner →
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- LEAD AUTOMATOR TECHNICAL ARCHITECTURE & INTEGRATION PANEL -->
+      <div id="lead-automator-section" class="automator-box">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:16px; flex-wrap:wrap;">
+          <div>
+            <div class="eyebrow" style="background:rgba(16,185,129,0.14); border-color:rgba(16,185,129,0.4); color:#34d399; margin-bottom:10px;">
+              ⚙️ Consola Interactiva Lead Automator · App ID: 1124959389975591
+            </div>
+            <h3 style="font-size:1.35rem; font-weight:900; margin-bottom:6px;">Simulador y Probador en Vivo de Disparo JSON (Webhook + WhatsApp API &lt;15s)</h3>
+            <p style="font-size:0.88rem; color:var(--text-secondary); max-width:760px;">
+              Prueba aquí mismo los <strong>3 escenarios de disparo JSON</strong> de <strong>Lead Automator</strong> (portafolio <em>Crecemos con Marketing</em>) o pega una URL de Webhook de prueba (ej. Make, n8n o Webhook.site) para disparar una petición <code>POST</code> real desde esta página:
+            </p>
+          </div>
+          <button type="button" class="btn btn-whatsapp" onclick="testLeadAutomatorPayload('inmobiliario')">
+            ⚡ Probar Disparo JSON de Lead Automator
+          </button>
+        </div>
+
+        <!-- ESCENARIOS DE PRUEBA RAPIDA -->
+        <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:16px; padding:14px; background:rgba(0,0,0,0.28); border:1px solid var(--border-subtle); border-radius:12px; align-items:center;">
+          <span style="font-size:0.78rem; font-weight:800; color:var(--accent-cyan);">1. Elige un escenario de prueba:</span>
+          <button type="button" class="btn btn-primary" style="padding:8px 13px; font-size:0.78rem;" onclick="testLeadAutomatorPayload('inmobiliario')">
+            🏡 Disparo 1: Lead Inmobiliario (Score A · Altozano)
+          </button>
+          <button type="button" class="btn btn-ghost" style="padding:8px 13px; font-size:0.78rem;" onclick="testLeadAutomatorPayload('clinica')">
+            🦷 Disparo 2: Clínica / E-commerce (Score A · Valoración)
+          </button>
+          <button type="button" class="btn btn-pink" style="padding:8px 13px; font-size:0.78rem;" onclick="testLeadAutomatorPayload('streamer')">
+            🔥 Disparo 3: Streamer TikTok LIVE (Roster 0% Comisión)
+          </button>
+        </div>
+
+        <!-- CONFIGURADOR DE WEBHOOK EN PANTALLA -->
+        <div style="display:grid; grid-template-columns: 1fr auto; gap:10px; margin-top:12px; align-items:center;">
+          <input id="live-webhook-input" type="url" class="form-control" placeholder="Opcional: Pega aquí tu URL de Webhook (Make / n8n / Webhook.site) para enviar un POST real..." value="https://tu-endpoint-lead-automator.com/webhook/impulso-live-media" />
+          <button type="button" class="btn btn-ghost" onclick="saveWebhookFromUI()">
+            🔗 Actualizar Endpoint
+          </button>
+        </div>
+
+        <div class="automator-steps">
+          <div class="auto-step-card">
+            <div style="color:var(--accent-cyan); font-weight:800; font-size:0.8rem; margin-bottom:4px;">PUNTO 1 · CAPTURA (WEB O ANUNCIO)</div>
+            <h4 style="font-size:0.95rem; margin-bottom:6px;">Empaquetado JSON + UTMs</h4>
+            <p style="font-size:0.81rem; color:var(--text-secondary);">
+              Al enviar cualquier formulario o botón de prueba, <code>dispatchToLeadAutomator()</code> estructura los datos del prospecto y calcula al instante si es <strong>Score A, B o C</strong>.
+            </p>
+          </div>
+
+          <div class="auto-step-card">
+            <div style="color:var(--accent-amber); font-weight:800; font-size:0.8rem; margin-bottom:4px;">PUNTO 2 · MOTOR LEAD AUTOMATOR</div>
+            <h4 style="font-size:0.95rem; margin-bottom:6px;">Webhook POST (ID 1124959389975591)</h4>
+            <p style="font-size:0.81rem; color:var(--text-secondary);">
+              Envía la petición <code>POST</code> con cabecera <code>application/json</code> hacia tu flujo en Make/n8n o servidor conectado con la <strong>Marketing API</strong> en menos de 2 segundos.
+            </p>
+          </div>
+
+          <div class="auto-step-card">
+            <div style="color:#34d399; font-weight:800; font-size:0.8rem; margin-bottom:4px;">PUNTO 3 · SALIDA WHATSAPP (&lt;15s)</div>
+            <h4 style="font-size:0.95rem; margin-bottom:6px;">Disparo Cloud API + Pase QR</h4>
+            <p style="font-size:0.81rem; color:var(--text-secondary);">
+              Dispara la plantilla oficial de WhatsApp (<code>/inmobiliario</code>, <code>/ecommerce</code> o <code>/streamer</code>) al cliente y notifica a tu teléfono <strong>+52 56 6744 2715</strong>.
+            </p>
+          </div>
+        </div>
+
+        <!-- MONITOR DIVIDIDO: ENTRADA JSON (WEBHOOK) VS SALIDA WHATSAPP API -->
+        <div class="calc-grid" style="align-items:stretch;">
+          <div style="display:flex; flex-direction:column;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px; gap:8px; flex-wrap:wrap;">
+              <span style="font-size:0.75rem; font-weight:800; color:var(--accent-cyan);">📤 1. PAYLOAD JSON ENVIADO AL WEBHOOK (ENTRADA):</span>
+              <div style="display:flex; gap:8px; align-items:center;">
+                <span id="automator-status-pill" style="font-size:0.72rem; color:#34d399; font-weight:800;">● HTTP 200 OK · Disparo #1 Listo (114 ms)</span>
+                <button type="button" class="btn btn-ghost" style="padding:4px 10px; font-size:0.72rem;" onclick="copyJsonMonitor(this)">📋 Copiar JSON</button>
+              </div>
+            </div>
+            <pre id="automator-json-monitor" class="code-preview" style="flex:1; min-height:250px;"></pre>
+          </div>
+
+          <div style="display:flex; flex-direction:column; justify-content:space-between; background:#090d16; border:1px solid var(--border-subtle); border-radius:var(--radius-md); padding:16px;">
+            <div>
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; flex-wrap:wrap; gap:6px;">
+                <span style="font-size:0.75rem; font-weight:800; color:#34d399;">📲 2. RESPUESTA DISPARADA EN WHATSAPP (&lt;15 SEG):</span>
+                <span id="automator-sla-badge" class="live-pill" style="background:rgba(16,185,129,0.16); color:#34d399; border-color:rgba(16,185,129,0.4);">SLA: 03.2 SEG</span>
+              </div>
+
+              <div id="automator-wa-preview" class="whatsapp-toast" style="margin-bottom:12px;">
+              </div>
+
+              <div style="font-size:0.75rem; color:var(--text-muted); margin-bottom:8px;">
+                <strong>Petición saliente hacia Meta WhatsApp Cloud API:</strong>
+              </div>
+              <pre id="automator-wa-api-preview" class="code-preview" style="color:#a7f3d0; font-size:0.72rem; padding:10px;"></pre>
+            </div>
+
+            <div style="margin-top:12px;">
+              <a id="automator-wa-live-link" href="https://wa.me/525667442715" target="_blank" rel="noopener" class="btn btn-whatsapp" style="width:100%; font-size:0.8rem;">
+                📲 Enviar este Disparo de Prueba a mi WhatsApp (56 6744 2715) →
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DIVISION CREATOR NETWORK: TIKTOK LIVE -->
+  <section id="creadores" class="section creator-section creator-only-block" style="border-top: 1px solid var(--border-subtle);">
+    <div class="container">
+      <div class="section-header">
+        <div class="eyebrow" style="background:rgba(255,0,80,0.12); border-color:rgba(255,0,80,0.35); color:#ff4d84;">
+          🔥 Impulso Live Creator Network · 100% Gratis · 0% Comisión sobre tus Diamantes
+        </div>
+        <h2 class="section-title">Los creadores que transmiten solos adivinan. Nuestro roster tiene manager, batallas programadas y campañas pagadas con marcas.</h2>
+        <p class="section-desc">
+          En <strong>Impulso Live Media Creator Network</strong> profesionalizamos tu canal de TikTok LIVE: unirte es <strong>100% gratuito y conservas el 100% de tus Diamantes</strong>. TikTok te deposita tus ganancias directamente a ti y nos compensa a nosotros por separado por formarte, con una ventaja única en el mercado: conectamos a nuestros mejores talentos con campañas pagadas de las empresas clientes de nuestra agencia.
+        </p>
+      </div>
+
+      <!-- 6 BENEFITS GRID -->
+      <div class="benefits-grid">
+        <div class="benefit-card">
+          <span class="benefit-icon">💎</span>
+          <h3>1. 0% de Comisión sobre tus Diamantes</h3>
+          <p>Tus regalos van íntegros a tu propio balance dentro de TikTok. Jamás pedimos tu contraseña ni cobramos cuotas de ingreso o mantenimiento.</p>
+        </div>
+
+        <div class="benefit-card">
+          <span class="benefit-icon">📈</span>
+          <h3>2. Scaled LIVE Rewards (Hasta ~53%)</h3>
+          <p>Tu porcentaje de recompensa en TikTok depende de cumplir misiones. Diseñamos tu calendario con sesiones válidas de <strong>25+ minutos</strong> para subir tu retorno del ~20% base hasta el ~53%.</p>
+        </div>
+
+        <div class="benefit-card">
+          <span class="benefit-icon">🥊</span>
+          <h3>3. Matchmaking de Batallas PK y Ligas</h3>
+          <p>Te emparejamos con creadores de nuestro roster de tu mismo nivel para batallas de 5 minutos y entrenamos a tu sala en el uso estratégico de <em>Boosting Glove (x5)</em>, <em>Magic Mist</em>, <em>Time Maker</em> y <em>Stun Hammer</em>.</p>
+        </div>
+
+        <div class="benefit-card">
+          <span class="benefit-icon">🛡️</span>
+          <h3>4. Blindaje de Cuenta y Apelaciones</h3>
+          <p>Recibes nuestro checklist preventivo pre-LIVE (música, moderadores, palabras filtradas) y soporte directo de agencia para escalar apelaciones ante bloqueos o reportes masivos injustos.</p>
+        </div>
+
+        <div class="benefit-card">
+          <span class="benefit-icon">💼</span>
+          <h3>5. Campañas Pagadas UGC y Live Shopping</h3>
+          <p>A diferencia de las redes que solo viven de regalos en vivo, contratamos a nuestros talentos constantes para grabar anuncios UGC, <em>Spark Ads</em> y conducir <em>Showrooms en Vivo</em> para marcas e inmobiliarias.</p>
+        </div>
+
+        <div class="benefit-card">
+          <span class="benefit-icon">🎬</span>
+          <h3>6. AI Live Summaries y Clips de 15–25s</h3>
+          <p>Te entrenamos para pronunciar en los primeros 5 minutos las palabras clave que la inteligencia artificial de TikTok (<em>AI Live Summaries</em>) escucha para recomendar tu sala y extraer micro-clips virales.</p>
+        </div>
+      </div>
+
+      <!-- INTERACTIVE CREATOR EARNINGS CALCULATOR -->
+      <div id="calculadora-live" class="calc-card" style="border-color: rgba(255,0,80,0.3);">
+        <div class="eyebrow" style="background:rgba(255,0,80,0.12); border-color:rgba(255,0,80,0.35); color:#ff4d84;">
+          🧮 Simulador de Monetización para Creadores (Diamantes + Misiones + Marcas)
+        </div>
+        <h3 style="font-size:1.4rem; font-weight:900; margin-bottom:8px;">Compara tus ingresos: Transmitiendo Solo vs. Roster Impulso Live Media</h3>
+        <p style="color:var(--text-secondary); font-size:0.89rem; margin-bottom:22px;">
+          Cálculo basado en la conversión oficial de Diamantes (1 💎 ≈ $0.005 USD base), el desbloqueo de misiones <em>Scaled LIVE Rewards</em> (de ~20% a ~53%) y la participación en campañas UGC / <em>Live Shopping</em> con clientes de nuestra agencia:
+        </p>
+
+        <div class="calc-grid">
+          <div>
+            <div class="slider-group">
+              <label>
+                <span>Monedas en Regalos Recibidos al Mes:</span>
+                <span id="cr-coins-val" style="color:#ff4d84;">100,000 monedas</span>
+              </label>
+              <input id="cr-coins" type="range" min="20000" max="500000" step="10000" value="100000" style="accent-color:#ff0050;" oninput="updateCreatorCalc()" />
+            </div>
+
+            <div class="slider-group">
+              <label>
+                <span>Campañas UGC / Live Shopping con Marcas al Mes:</span>
+                <span id="cr-deals-val" style="color:#ff4d84;">2 campañas + Shop</span>
+              </label>
+              <input id="cr-deals" type="range" min="0" max="6" step="1" value="2" style="accent-color:#ff0050;" oninput="updateCreatorCalc()" />
+            </div>
+          </div>
+
+          <div class="calc-results">
+            <div class="calc-stat">
+              <div id="cr-solo-usd" class="num" style="color:var(--text-muted);">$200 USD</div>
+              <div class="lbl">Transmitiendo Solo (~20% sin misiones ni marcas)</div>
+            </div>
+            <div class="calc-stat" style="border-color:rgba(255,0,80,0.4);">
+              <div id="cr-agency-usd" class="num" style="color:#ff4d84;">$830 USD</div>
+              <div class="lbl">En Impulso Live Media (Misiones ~53% + Deals UGC/Shop)</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- REQUIREMENTS & 5-STEP ONBOARDING TABLE -->
+      <div class="table-wrap" style="margin-top:34px; margin-bottom:0;">
+        <table class="comp-table">
+          <thead>
+            <tr>
+              <th>✅ Requisitos para Postular al Roster de Impulso Live Media</th>
+              <th>📲 Cómo Aceptar tu Invitación Oficial en TikTok (En 5 Toques)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>1. Tener 18 años cumplidos:</strong> Requisito obligatorio de TikTok para activar regalos en vivo y retiros.</td>
+              <td><strong>Toque 1 y 2:</strong> Ve a tu <strong>Perfil</strong> en TikTok → toca el menú <strong>☰</strong> (arriba a la derecha) → selecciona <strong>TikTok Studio</strong>.</td>
+            </tr>
+            <tr>
+              <td><strong>2. Cuenta en buen estado (con o menos de 1,000 seguidores):</strong> Si aún no tienes 1,000 seguidores, entras a nuestra incubadora UGC y desbloqueo LIVE.</td>
+              <td><strong>Toque 3:</strong> Entra a la pestaña <strong>LIVE</strong> y toca <strong>Creator Network Center</strong> (o <em>Agency Center</em>).</td>
+            </tr>
+            <tr>
+              <td><strong>3. Constancia de 20 horas/mes:</strong> Distribuidas en sesiones válidas de <strong>25+ minutos</strong> varios días por semana para activar bonos.</td>
+              <td><strong>Toque 4:</strong> Copia tu <strong>Código de Invitación</strong> y envíalo a nuestro WhatsApp oficial (<strong>56 6744 2715</strong>).</td>
+            </tr>
+            <tr>
+              <td><strong>4. Setup básico cuidado:</strong> Buena iluminación frontal, audio claro, conexión estable y actitud frente a cámara.</td>
+              <td><strong>Toque 5:</strong> Recibe la invitación en tu app de TikTok, toca <strong>Aceptar</strong> y entra a nuestro grupo de matchmaking en menos de 24h.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- DUAL CONVERSION FORMS -->
+  <section id="formularios" class="section" style="border-top: 1px solid var(--border-subtle);">
+    <div class="container">
+      <div class="section-header">
+        <div class="eyebrow">🚀 Comienza Hoy Mismo · WhatsApp Oficial 56 6744 2715</div>
+        <h2 class="section-title">Elige tu formulario de ingreso y conéctate en segundos</h2>
+        <p class="section-desc">
+          Ambos formularios están integrados con nuestro motor <strong>Lead Automator</strong> y conectan directamente con nuestra línea oficial de WhatsApp (<strong>+52 56 6744 2715</strong>).
+        </p>
+      </div>
+
+      <div id="forms-grid-container" class="forms-grid">
+        <!-- FORM 1: B2B EMPRESAS -->
+        <div class="form-box b2b-section b2b-only-block" style="border-top: 3px solid var(--accent-cyan);">
+          <div style="color:var(--accent-cyan); font-size:0.75rem; font-weight:800; text-transform:uppercase; margin-bottom:6px;">
+            Formulario 1 · Para Empresas, Desarrollos, Clínicas y E-commerce
+          </div>
+          <h3 style="font-size:1.25rem; margin-bottom:8px;">Agenda tu Auditoría de Crecimiento y Embudo en Vivo</h3>
+          <p style="font-size:0.85rem; color:var(--text-secondary); margin-bottom:18px;">
+            Analizamos tus anuncios actuales, tu retención al segundo 3 y tu velocidad de respuesta en WhatsApp.
+          </p>
+
+          <form onsubmit="handleB2BSubmit(event)">
+            <div class="form-group">
+              <label for="f1-name">Nombre y Apellido *</label>
+              <input id="f1-name" type="text" class="form-control" required placeholder="Ej. Ing. Roberto Méndez" />
+            </div>
+            <div class="form-group">
+              <label for="f1-company">Nombre de tu Empresa, Desarrollo o Clínica *</label>
+              <input id="f1-company" type="text" class="form-control" required placeholder="Ej. Desarrollos Morelia / Clínica Altozano" />
+            </div>
+            <div class="form-group">
+              <label for="f1-phone">Tu WhatsApp (a 10 dígitos para enviarte diagnóstico en &lt;15s) *</label>
+              <input id="f1-phone" type="tel" class="form-control" required placeholder="Ej. 4431234567" />
+            </div>
+            <div class="form-group">
+              <label for="f1-sector">Sector de tu Negocio *</label>
+              <select id="f1-sector" class="form-control">
+                <option value="Desarrollo Inmobiliario / Bienes Raíces">Desarrollo Inmobiliario / Bienes Raíces</option>
+                <option value="Clínica Especializada / Servicio de Alto Ticket">Clínica Especializada / Servicio de Alto Ticket</option>
+                <option value="E-commerce / Retail">E-commerce / Retail</option>
+                <option value="Negocio Local / Restaurante">Negocio Local / Restaurante</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="f1-package">Paquete o Modalidad de Interés *</label>
+              <select id="f1-package" class="form-control">
+                <option value="Plan 2: Impulso Growth 360° ($14,500 MXN/mes)">Plan 2: Impulso Growth 360° ($14,500 MXN/mes · Recomendado)</option>
+                <option value="Sprint 10 Días ($4,900 MXN Pago Único)">Oferta Rompe-Hielo: Sprint 10 Días ($4,900 MXN Pago Único)</option>
+                <option value="Plan 1: Impulso Arranque ($8,500 MXN/mes)">Plan 1: Impulso Arranque ($8,500 MXN/mes)</option>
+                <option value="Plan 3: Impulso Live Partner ($22,500 MXN/mes)">Plan 3: Impulso Live Partner ($22,500 MXN/mes)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="f1-budget">Presupuesto Mensual Estimado en Pauta *</label>
+              <select id="f1-budget" class="form-control">
+                <option value="Arrancando ($10,000 – $20,000 MXN/mes)">Arrancando ($10,000 – $20,000 MXN/mes)</option>
+                <option value="Escalamiento ($20,000 – $50,000 MXN/mes)">Escalamiento ($20,000 – $50,000 MXN/mes)</option>
+                <option value="Consolidado (+$50,000 MXN/mes)">Consolidado (+$50,000 MXN/mes)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="f1-goal">¿Qué necesitas resolver con mayor urgencia? *</label>
+              <select id="f1-goal" class="form-control">
+                <option value="Captar leads calificados y agendar citas con Pase QR">Captar leads calificados y agendar citas con Pase QR</option>
+                <option value="Producir videos verticales de 15-25s que sí conviertan">Producir videos verticales de 15-25s que sí conviertan</option>
+                <option value="Automatizar WhatsApp con Lead Automator en <15s">Automatizar WhatsApp con Lead Automator en &lt;15s</option>
+                <option value="Activar Live Shopping / Recorridos en Vivo">Activar Live Shopping / Recorridos en Vivo</option>
+              </select>
+            </div>
+            <button type="submit" class="btn btn-primary" style="width:100%;">
+              Procesar en Lead Automator y Enviar a WhatsApp →
+            </button>
+          </form>
+          <div id="f1-feedback" style="display:none; margin-top:14px; padding:14px; border-radius:10px; background:rgba(16,185,129,0.14); border:1px solid rgba(16,185,129,0.4); font-size:0.83rem;"></div>
+        </div>
+
+        <!-- FORM 2: CREATOR NETWORK -->
+        <div class="form-box creator-section creator-only-block" style="border-top: 3px solid var(--accent-pink);">
+          <div style="color:#ff4d84; font-size:0.75rem; font-weight:800; text-transform:uppercase; margin-bottom:6px;">
+            Formulario 2 · Para Creadores y Streamers (Aplicación en 60 Segundos)
+          </div>
+          <h3 style="font-size:1.25rem; margin-bottom:8px;">Postúlate a la Creator Network de Impulso Live Media</h3>
+          <p style="font-size:0.85rem; color:var(--text-secondary); margin-bottom:18px;">
+            Unirse es 100% gratis (0% comisión de Diamantes). Un manager revisará tu perfil desde el WhatsApp <strong>56 6744 2715</strong> en menos de 24 horas.
+          </p>
+
+          <form onsubmit="handleCreatorSubmit(event)">
+            <div class="form-group">
+              <label for="f2-name">Tu Nombre *</label>
+              <input id="f2-name" type="text" class="form-control" required placeholder="Ej. Sofía Torres" />
+            </div>
+            <div class="form-group">
+              <label for="f2-user">Tu @usuario de TikTok *</label>
+              <input id="f2-user" type="text" class="form-control" required placeholder="Ej. @sofia.live" />
+            </div>
+            <div class="form-group">
+              <label for="f2-phone">Tu WhatsApp de Contacto *</label>
+              <input id="f2-phone" type="tel" class="form-control" required placeholder="Ej. 4439876543" />
+            </div>
+            <div class="form-group">
+              <label for="f2-city">Ciudad y País *</label>
+              <input id="f2-city" type="text" class="form-control" required placeholder="Ej. Morelia, México" />
+            </div>
+            <div class="form-group">
+              <label for="f2-followers">Rango de Seguidores Actual *</label>
+              <select id="f2-followers" class="form-control">
+                <option value="Menos de 1,000 (Quiero incubadora UGC y desbloquear LIVE)">Menos de 1,000 (Quiero incubadora UGC y desbloquear LIVE)</option>
+                <option value="1,000 a 10,000 (LIVE Activo)">1,000 a 10,000 (LIVE Activo)</option>
+                <option value="10,000 a 50,000">10,000 a 50,000</option>
+                <option value="Más de 50,000">Más de 50,000</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="f2-interest">¿Qué te interesa más dentro de la agencia? *</label>
+              <select id="f2-interest" class="form-control">
+                <option value="Todo: Batallas PK + Live Shopping + Campañas UGC con Marcas">Todo: Batallas PK + Live Shopping + Campañas UGC con Marcas</option>
+                <option value="Crecer en TikTok LIVE y Batallas PK (0% Comisión)">Crecer en TikTok LIVE y Batallas PK (0% Comisión)</option>
+                <option value="Hacer Live Shopping y ganar comisiones">Hacer Live Shopping y ganar comisiones</option>
+                <option value="Grabar videos UGC / Campañas pagadas con marcas">Grabar videos UGC / Campañas pagadas con marcas</option>
+              </select>
+            </div>
+            <button type="submit" class="btn btn-pink" style="width:100%;">
+              Enviar Solicitud Gratis al WhatsApp 56 6744 2715 →
+            </button>
+          </form>
+          <div id="f2-feedback" style="display:none; margin-top:14px; padding:14px; border-radius:10px; background:rgba(255,0,80,0.14); border:1px solid rgba(255,0,80,0.4); font-size:0.83rem;"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ SECTION -->
+  <section id="faq" class="section" style="border-top: 1px solid var(--border-subtle);">
+    <div class="container">
+      <div class="section-header">
+        <div class="eyebrow">❓ Resolución de Dudas Frecuentes</div>
+        <h2 class="section-title">Preguntas Frecuentes (Empresas y Creadores)</h2>
+      </div>
+
+      <div id="faq-grid-container" class="faq-grid">
+        <div class="b2b-only-block">
+          <h3 style="font-size:1.08rem; color:var(--accent-cyan); margin-bottom:14px;">Para Empresas, Desarrollos, Clínicas y E-commerce</h3>
+
+          <div class="faq-item open">
+            <button type="button" class="faq-question" onclick="toggleFaq(this)">
+              <span>¿Por qué integran video vertical, pauta y Lead Automator en &lt;15s?</span>
+              <span class="faq-icon">−</span>
+            </button>
+            <div class="faq-answer">
+              Porque en TikTok y Meta el pico de clics ocurre entre los segundos 15 y 20 del video. Si el prospecto deja sus datos y nadie le responde ni lo precalifica en los primeros 15 segundos, el interés cae drásticamente. Nuestro ecosistema cierra todo el circuito desde el gancho del segundo 3 hasta el Pase QR de la cita.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button type="button" class="faq-question" onclick="toggleFaq(this)">
+              <span>Mi negocio es inmobiliario o médico de alto ticket, ¿funciona TikTok para mí?</span>
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              Totalmente. El <strong>84% de los compradores</strong> hoy investiga opciones en video vertical antes de tomar una decisión, y en sectores patrimoniales o médicos los formatos con rostro real (<em>Spark Ads</em>) superan en <strong>más de 40% el engagement</strong> frente a los anuncios corporativos tradicionales, filtrando por capacidad crediticia y ubicación.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button type="button" class="faq-question" onclick="toggleFaq(this)">
+              <span>¿Qué pasa si no tengo tiempo para grabarme hablando a cámara?</span>
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              Los anuncios hablados convierten un <strong>33% mejor</strong>, por lo que si prefieres no salir a cuadro, asignamos presentadores y creadores de nuestro propio roster de <strong>Impulso Live Media</strong> para grabar tus recorridos, anuncios UGC y sesiones de <em>Live Shopping</em>.
+            </div>
+          </div>
+        </div>
+
+        <div class="creator-only-block">
+          <h3 style="font-size:1.08rem; color:#ff4d84; margin-bottom:14px;">Para Creadores y Streamers (TikTok LIVE)</h3>
+
+          <div class="faq-item open">
+            <button type="button" class="faq-question" onclick="toggleFaq(this)">
+              <span>¿De verdad me quedo con el 100% de mis Diamantes?</span>
+              <span class="faq-icon">−</span>
+            </button>
+            <div class="faq-answer">
+              Sí, el 100% íntegro. TikTok deposita tus Diamantes directamente en tu propio balance y bonifica a <strong>Impulso Live Media</strong> por separado por formar, organizar batallas y hacer crecer a los creadores del roster.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button type="button" class="faq-question" onclick="toggleFaq(this)">
+              <span>¿Tendrán acceso a mi contraseña o al control de mi cuenta?</span>
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              Jamás. La vinculación se realiza exclusivamente dentro del centro oficial de la app de TikTok (<em>Creator Network Center</em> / <em>LIVE Backstage</em>) mediante tu código de invitación, sin pedir nunca tu contraseña ni tocar tus retiros.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button type="button" class="faq-question" onclick="toggleFaq(this)">
+              <span>¿Qué pasa si aún no llego a los 1,000 seguidores en TikTok?</span>
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              Puedes postularte hoy mismo en el Formulario 2 seleccionando la opción de menos de 1,000 seguidores: te integramos a nuestra incubadora de guiones de 15–25s para desbloquear el botón LIVE rápidamente y te tomamos en cuenta para grabar campañas UGC pagadas con marcas locales.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px;">
+      <div>
+        <strong style="color:var(--text-primary); font-size:0.95rem;">IMPULSO LIVE MEDIA</strong> · Morelia, Michoacán &amp; México · Dirección: Elmer Sierra<br />
+        <span>Agencia de Growth Vertical, Live Commerce, Automatización &lt;15s (Lead Automator) y TikTok LIVE Creator Network · WhatsApp Oficial: <a href="https://wa.me/525667442715" target="_blank" rel="noopener"><strong>+52 56 6744 2715</strong></a></span>
+      </div>
+      <div>
+        <a href="https://wa.me/525667442715?text=Hola%20Impulso%20Live%20Media%2C%20quiero%20conectar%20con%20ustedes." target="_blank" rel="noopener" class="btn btn-whatsapp" style="padding:9px 16px; font-size:0.82rem;">💬 Contactar al 56 6744 2715</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- INTERACTIVE JAVASCRIPT & LEAD AUTOMATOR INTEGRATION MODULE -->
+  <script src="script.js"></script>
+</body>
+</html>
