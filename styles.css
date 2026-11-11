@@ -1432,3 +1432,7 @@ body.effects-paused .studio-card,body.effects-paused .floating-chip,body.effects
   body.effects-enabled .chip-bottom { animation:impulso-chip-drift 8s ease-in-out infinite reverse !important; }
   body.effects-enabled .creative-stage .stage-cross { animation:impulso-star-turn 24s linear infinite !important; }
 }
+@media(max-width:360px) {
+  .visual-effects-toggle { width:36px; height:36px; min-height:36px; padding:7px; justify-content:center; }
+  .visual-effects-toggle #visual-effects-label { display:none; }
+}
