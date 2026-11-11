@@ -626,9 +626,9 @@ window.addEventListener('DOMContentLoaded', () => revealAnchor(location.hash));
   if (!context) { toggle.hidden = true; return; }
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
   const colors = [[117,242,227], [140,183,255], [200,159,243], [251,124,166]];
-  let saved = 'on';
-  try { saved = localStorage.getItem('impulso-visual-effects') || 'on'; } catch {}
-  let enabled = !reduced.matches && saved !== 'off';
+  let saved = 'auto';
+  try { saved = localStorage.getItem('impulso-visual-effects') || 'auto'; } catch {}
+  let enabled = saved === 'on' || (!reduced.matches && saved !== 'off');
   let width = 0, height = 0, points = [], frame = 0, emission = 0;
   let previous = 0, elapsed = 0, burstCount = 0;
   let pointer = null;
@@ -740,8 +740,8 @@ window.addEventListener('DOMContentLoaded', () => revealAnchor(location.hash));
     toggle.setAttribute('aria-pressed', String(enabled));
     toggle.setAttribute('aria-label', enabled ? 'Pausar efectos visuales' : 'Activar efectos visuales');
     label.textContent = enabled ? 'Pausar efectos' : 'Activar efectos';
-    toggle.disabled = reduced.matches;
-    if (reduced.matches) label.textContent = 'Movimiento reducido';
+    toggle.title = reduced.matches ? 'Tu dispositivo prefiere menos movimiento. Puedes activar los efectos si lo deseas.' : '';
+    document.body.classList.toggle('effects-enabled', enabled);
     document.body.classList.toggle('effects-paused', !enabled);
     if (enabled) start();
     else { stop(); context.clearRect(0, 0, width, height); }
@@ -753,7 +753,7 @@ window.addEventListener('DOMContentLoaded', () => revealAnchor(location.hash));
     sync();
   });
   reduced.addEventListener('change', () => {
-    enabled = !reduced.matches && localStoragePreference() !== 'off';
+    enabled = localStoragePreference() === 'on' || (!reduced.matches && localStoragePreference() !== 'off');
     sync();
   });
   function localStoragePreference() {

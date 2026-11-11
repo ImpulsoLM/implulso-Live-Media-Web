@@ -1422,3 +1422,13 @@ body.effects-paused .studio-card,body.effects-paused .floating-chip,body.effects
 @keyframes impulso-star-turn { to{transform:rotate(360deg)} }
 @media(max-width:600px) { .live-reactions { width:78px; height:220px; right:8px; bottom:calc(83px + env(safe-area-inset-bottom)); opacity:.72; } .visual-effects-toggle { left:12px; bottom:calc(16px + env(safe-area-inset-bottom)); font-size:9px; padding:7px 9px; min-height:34px; max-width:135px; } .impulso-flow { opacity:.62; } .audience-bar-inner>span { display:none; } .mode-btn { flex:1; } }
 @media(prefers-reduced-motion:reduce) { .live-reactions { display:none; } .studio-card,.floating-chip,.creative-stage .stage-cross { animation:none !important; } }
+/* An explicit visitor choice may enable these effects over the device default. */
+@media(prefers-reduced-motion:reduce) {
+  body.effects-enabled .live-reactions { display:block; }
+  body.effects-enabled .live-reaction { animation:impulso-reaction-rise var(--reaction-duration,4.8s) ease-out forwards !important; }
+  body.effects-enabled .live-reaction>span { animation:impulso-reaction-sway 1.8s ease-in-out infinite alternate !important; }
+  body.effects-enabled .studio-card { animation:impulso-studio-float 9s ease-in-out infinite !important; }
+  body.effects-enabled .chip-top { animation:impulso-chip-drift 7s ease-in-out infinite !important; }
+  body.effects-enabled .chip-bottom { animation:impulso-chip-drift 8s ease-in-out infinite reverse !important; }
+  body.effects-enabled .creative-stage .stage-cross { animation:impulso-star-turn 24s linear infinite !important; }
+}
