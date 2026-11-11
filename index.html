@@ -40,12 +40,12 @@
       <div class="nav-actions">
         <a href="#formularios" class="btn btn-outline">Soy Creador (0% Comisión)</a>
         <a href="https://wa.me/525667442715?text=Hola%20Impulso%20Live%20Media%2C%20soy%20empresa%20y%20quiero%20escalar%20mis%20ventas%20con%20su%20sistema." target="_blank" rel="noopener" class="btn btn-primary">WhatsApp: 56 6744 2715</a>
-        <button type="button" id="mobile-nav-toggle" class="mobile-menu-btn" onclick="toggleMobileNav()">☰ Menú</button>
+        <button type="button" id="mobile-nav-toggle" class="mobile-menu-btn" aria-controls="mobile-nav-drawer" aria-expanded="false" aria-label="Abrir menú de navegación" onclick="toggleMobileNav()">☰ Menú</button>
       </div>
     </div>
 
     <!-- MOBILE NAVIGATION DRAWER -->
-    <div id="mobile-nav-drawer" class="mobile-nav-drawer">
+    <div id="mobile-nav-drawer" class="mobile-nav-drawer" aria-label="Navegación móvil">
       <ul class="mobile-nav-list">
         <li><a href="#empresas" onclick="closeMobileNav()">🏢 Soluciones B2B</a></li>
         <li><a href="#reto-15s" onclick="closeMobileNav()">⏱️ Reto &lt;15 Segundos</a></li>
@@ -299,7 +299,7 @@
       </div>
 
       <!-- COMPARISON TABLE -->
-      <div class="table-wrap">
+      <div class="table-wrap" role="region" aria-label="Tabla comparativa; desliza horizontalmente para ver todas las columnas" tabindex="0">
         <table class="comp-table">
           <thead>
             <tr>
@@ -561,7 +561,7 @@
         </div>
 
         <!-- CONFIGURADOR DE WEBHOOK EN PANTALLA -->
-        <div style="display:grid; grid-template-columns: 1fr auto; gap:10px; margin-top:12px; align-items:center;">
+        <div class="webhook-controls">
           <input id="live-webhook-input" type="url" class="form-control" placeholder="Opcional: Pega aquí tu URL de Webhook (Make / n8n / Webhook.site) para enviar un POST real..." value="https://tu-endpoint-lead-automator.com/webhook/impulso-live-media" />
           <button type="button" class="btn btn-ghost" onclick="saveWebhookFromUI()">
             🔗 Actualizar Endpoint

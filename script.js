@@ -212,19 +212,36 @@
       }
     }
 
-    function toggleMobileNav() {
+    function setMobileNavOpen(open) {
       const drawer = document.getElementById('mobile-nav-drawer');
-      if (drawer) {
-        drawer.classList.toggle('open');
-      }
+      const toggle = document.getElementById('mobile-nav-toggle');
+      if (!drawer || !toggle) return;
+      drawer.classList.toggle('open', open);
+      toggle.setAttribute('aria-expanded', String(open));
+      toggle.setAttribute('aria-label', open ? 'Cerrar menú de navegación' : 'Abrir menú de navegación');
+      toggle.textContent = open ? '✕ Cerrar' : '☰ Menú';
     }
 
-    function closeMobileNav() {
+    function toggleMobileNav() {
       const drawer = document.getElementById('mobile-nav-drawer');
-      if (drawer) {
-        drawer.classList.remove('open');
-      }
+      setMobileNavOpen(!drawer?.classList.contains('open'));
     }
+
+    function closeMobileNav() { setMobileNavOpen(false); }
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && document.getElementById('mobile-nav-drawer')?.classList.contains('open')) {
+        closeMobileNav();
+        document.getElementById('mobile-nav-toggle')?.focus();
+      }
+    });
+    document.addEventListener('click', (event) => {
+      if (event.target instanceof Element && !event.target.closest('.site-header')) closeMobileNav();
+    });
+    const desktopNavQuery = window.matchMedia('(min-width: 1201px)');
+    desktopNavQuery.addEventListener('change', (event) => {
+      if (event.matches) closeMobileNav();
+    });
 
     // 1. Filtro integral de vista por audiencia (Todo / Solo Empresas / Solo Creadores)
     function setSiteMode(mode, btn) {
@@ -576,3 +593,4 @@
         icon.textContent = isOpen ? '−' : '+';
       }
     }
+
