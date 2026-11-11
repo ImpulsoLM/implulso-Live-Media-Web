@@ -614,3 +614,157 @@ document.addEventListener('click', (event) => {
 });
 window.addEventListener('hashchange', () => revealAnchor(location.hash));
 window.addEventListener('DOMContentLoaded', () => revealAnchor(location.hash));
+
+// Decorative motion stays local: no libraries, tracking or network requests.
+(() => {
+  const canvas = document.getElementById('impulso-flow');
+  const reactions = document.getElementById('live-reactions');
+  const toggle = document.getElementById('visual-effects-toggle');
+  const label = document.getElementById('visual-effects-label');
+  if (!canvas || !reactions || !toggle || !label) return;
+  const context = canvas.getContext('2d', { alpha: true });
+  if (!context) { toggle.hidden = true; return; }
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const colors = [[117,242,227], [140,183,255], [200,159,243], [251,124,166]];
+  let saved = 'on';
+  try { saved = localStorage.getItem('impulso-visual-effects') || 'on'; } catch {}
+  let enabled = !reduced.matches && saved !== 'off';
+  let width = 0, height = 0, points = [], frame = 0, emission = 0;
+  let previous = 0, elapsed = 0, burstCount = 0;
+  let pointer = null;
+
+  function resize() {
+    width = document.documentElement.clientWidth;
+    height = window.innerHeight;
+    const ratio = Math.min(window.devicePixelRatio || 1, 1.5);
+    canvas.width = Math.round(width * ratio);
+    canvas.height = Math.round(height * ratio);
+    context.setTransform(ratio, 0, 0, ratio, 0, 0);
+    const count = width < 600 ? 65 : width < 1000 ? 110 : 190;
+    points = Array.from({ length: count }, (_, index) => ({
+      x: Math.random() * width,
+      y: Math.random() * height,
+      speed: .5 + Math.random() * .55,
+      size: index % 9 === 0 ? 1.8 : .8 + Math.random() * .5,
+      color: colors[index % colors.length],
+      trail: []
+    }));
+  }
+
+  function draw(now) {
+    frame = 0;
+    if (!enabled || document.hidden) return;
+    if (now - previous < 33) { frame = requestAnimationFrame(draw); return; }
+    const dt = Math.min((now - previous) / 33, 2);
+    previous = now;
+    elapsed += .006 * dt;
+    context.clearRect(0, 0, width, height);
+    for (const p of points) {
+      // A shared changing vector field keeps the swarm flowing in coordinated ribbons.
+      let angle = Math.sin(p.x * .003 + elapsed) * 1.8
+        + Math.cos(p.y * .004 - elapsed * .8) * 1.5
+        + Math.sin((p.x + p.y) * .002 + elapsed * .5) * .7;
+      if (pointer) {
+        const dx = pointer.x - p.x, dy = pointer.y - p.y;
+        const distance = Math.hypot(dx, dy);
+        if (distance < 180) {
+          const pull = (1 - distance / 180) * .4;
+          angle += Math.sin(Math.atan2(dy, dx) - angle) * pull;
+        }
+      }
+      p.trail.push({ x: p.x, y: p.y });
+      if (p.trail.length > 12) p.trail.shift();
+      p.x += Math.cos(angle) * p.speed * dt;
+      p.y += Math.sin(angle) * p.speed * dt;
+      if (p.x < -15 || p.x > width + 15 || p.y < -15 || p.y > height + 15) {
+        p.x = (p.x + width) % width;
+        p.y = (p.y + height) % height;
+        p.trail.length = 0;
+      }
+      const [r,g,b] = p.color;
+      if (p.trail.length > 1) {
+        context.beginPath();
+        context.moveTo(p.trail[0].x, p.trail[0].y);
+        for (let i = 1; i < p.trail.length; i++) context.lineTo(p.trail[i].x, p.trail[i].y);
+        context.lineTo(p.x, p.y);
+        context.strokeStyle = `rgba(${r},${g},${b},.15)`;
+        context.lineWidth = .6;
+        context.stroke();
+      }
+      context.beginPath();
+      context.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+      context.fillStyle = `rgba(${r},${g},${b},${p.size > 1.7 ? .72 : .4})`;
+      context.fill();
+    }
+    frame = requestAnimationFrame(draw);
+  }
+
+  function emitReaction() {
+    if (!enabled || document.hidden || reactions.childElementCount >= 8) return;
+    const glyphs = ['♥','♥','♥','✦','♡','💖'];
+    const node = document.createElement('span');
+    node.className = 'live-reaction';
+    node.style.setProperty('--reaction-left', (22 + Math.random() * 48) + '%');
+    node.style.setProperty('--reaction-size', (19 + Math.random() * 13) + 'px');
+    node.style.setProperty('--reaction-color', ['#fb7caf','#9df2e3','#c9a1f2','#ffb6cb'][burstCount % 4]);
+    node.style.setProperty('--reaction-drift', (-19 + Math.random() * 38) + 'px');
+    node.style.setProperty('--reaction-rotate', (-18 + Math.random() * 36) + 'deg');
+    node.style.setProperty('--reaction-duration', (4.4 + Math.random() * 1.4) + 's');
+    const inner = document.createElement('span');
+    inner.textContent = glyphs[burstCount++ % glyphs.length];
+    node.append(inner);
+    node.addEventListener('animationend', (event) => {
+      if (event.target === node) node.remove();
+    }, { once: true });
+    reactions.append(node);
+  }
+
+  function stop() {
+    cancelAnimationFrame(frame);
+    clearInterval(emission);
+    frame = 0;
+    emission = 0;
+    reactions.replaceChildren();
+  }
+
+  function start() {
+    stop();
+    if (!enabled || document.hidden) return;
+    previous = performance.now();
+    frame = requestAnimationFrame(draw);
+    emitReaction();
+    emission = setInterval(emitReaction, 1700);
+  }
+
+  function sync() {
+    toggle.setAttribute('aria-pressed', String(enabled));
+    toggle.setAttribute('aria-label', enabled ? 'Pausar efectos visuales' : 'Activar efectos visuales');
+    label.textContent = enabled ? 'Pausar efectos' : 'Activar efectos';
+    toggle.disabled = reduced.matches;
+    if (reduced.matches) label.textContent = 'Movimiento reducido';
+    document.body.classList.toggle('effects-paused', !enabled);
+    if (enabled) start();
+    else { stop(); context.clearRect(0, 0, width, height); }
+  }
+
+  toggle.addEventListener('click', () => {
+    enabled = !enabled;
+    try { localStorage.setItem('impulso-visual-effects', enabled ? 'on' : 'off'); } catch {}
+    sync();
+  });
+  reduced.addEventListener('change', () => {
+    enabled = !reduced.matches && localStoragePreference() !== 'off';
+    sync();
+  });
+  function localStoragePreference() {
+    try { return localStorage.getItem('impulso-visual-effects'); } catch { return null; }
+  }
+  document.addEventListener('visibilitychange', () => document.hidden ? stop() : start());
+  window.addEventListener('resize', resize, { passive: true });
+  window.addEventListener('pointermove', (event) => {
+    if (event.pointerType === 'mouse') pointer = { x: event.clientX, y: event.clientY };
+  }, { passive: true });
+  document.documentElement.addEventListener('pointerleave', () => { pointer = null; });
+  resize();
+  sync();
+})();
