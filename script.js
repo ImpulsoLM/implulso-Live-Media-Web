@@ -73,7 +73,7 @@
         setTimeout(() => { monitor.style.borderColor = 'rgba(255,255,255,0.09)'; }, 900);
       }
       if (pill) {
-        pill.textContent = '✅ HTTP 200 OK · Disparo #' + dispatchCounter + ' (' + latencyMs + ' ms)';
+        pill.textContent = LEAD_AUTOMATOR_CONFIG.enableLiveWebhook ? 'Enviando al webhook…' : 'DEMO · Ejemplo #' + dispatchCounter + ' · Sin envío real';
       }
 
       // Construir vista previa de WhatsApp Cloud API según el tipo de lead
@@ -84,9 +84,13 @@
         `¡Hola, ${leadName}! Recibimos tu solicitud en Impulso Live Media (${leadData.empresa || leadData.tiktok_user || leadData.sector || 'Diagnóstico'}). Tu calificación es ${leadData.score_asignado || leadData.score_calculado || 'SCORE A'} y aquí tienes tu acceso prioritario.`;
 
       if (waPreview) {
-        waPreview.innerHTML =
-          '<div class="whatsapp-header"><span>💬 WhatsApp Cloud API → ' + leadPhone + '</span><span>Entregado en 03.2s</span></div>' +
-          '<div class="whatsapp-body">"' + waMsgText + '"</div>';
+        const header = document.createElement('div');
+        header.className = 'whatsapp-header';
+        header.textContent = 'Vista previa de WhatsApp → ' + leadPhone + ' · Sin confirmación de entrega';
+        const body = document.createElement('div');
+        body.className = 'whatsapp-body';
+        body.textContent = waMsgText;
+        waPreview.replaceChildren(header, body);
       }
 
       if (waApiPreview) {
@@ -133,13 +137,14 @@
       // 3. Si enableLiveWebhook está activo, dispara el POST real hacia tu Webhook
       if (LEAD_AUTOMATOR_CONFIG.enableLiveWebhook && LEAD_AUTOMATOR_CONFIG.webhookUrl.startsWith('http')) {
         try {
-          await fetch(LEAD_AUTOMATOR_CONFIG.webhookUrl, {
+          const response = await fetch(LEAD_AUTOMATOR_CONFIG.webhookUrl, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload)
           });
+          if (pill) pill.textContent = response.ok ? 'Webhook recibido · HTTP ' + response.status + ' · No confirma entrega en WhatsApp' : 'Error del webhook · HTTP ' + response.status;
         } catch (networkErr) {
-          // Respaldo inmediato por WhatsApp si el endpoint externo no responde
+          if (pill) pill.textContent = "No se pudo conectar al webhook. Continúa por WhatsApp.";
         }
       }
 
@@ -206,9 +211,10 @@
 
     // Navegación suave y menú móvil
     function scrollToSection(id) {
+      revealAnchor('#' + id);
       const el = document.getElementById(id);
       if (el) {
-        el.scrollIntoView({ behavior: 'smooth' });
+        el.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
       }
     }
 
@@ -594,3 +600,17 @@
       }
     }
 
+
+function revealAnchor(hash) {
+  if (!hash || hash === '#') return;
+  let target; try { target = document.getElementById(decodeURIComponent(hash.slice(1))); } catch { return; }
+  if (!target) return;
+  let parent = target.parentElement;
+  while (parent) { if (parent.tagName === 'DETAILS') parent.open = true; parent = parent.parentElement; }
+}
+document.addEventListener('click', (event) => {
+  const anchor = event.target instanceof Element ? event.target.closest('a[href^="#"]') : null;
+  if (anchor) revealAnchor(anchor.getAttribute('href'));
+});
+window.addEventListener('hashchange', () => revealAnchor(location.hash));
+window.addEventListener('DOMContentLoaded', () => revealAnchor(location.hash));
