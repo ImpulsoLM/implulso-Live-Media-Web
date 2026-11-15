@@ -5,7 +5,7 @@
       appName: "Lead Automator",
       metaAppId: "1124959389975591",
       businessPortfolio: "Crecemos con Marketing",
-      officialWhatsApp: "525667442715",
+      officialWhatsApp: "523339205279",
       slaMaxSeconds: 15,
       // PASO PARA ACTIVAR WEBHOOK EN SERVIDOR / MAKE / N8N:
       // 1. Pega aquí la URL de tu Webhook receptor (ej. Make, n8n o tu endpoint Node/Python)
@@ -418,12 +418,12 @@
             outputEl.innerHTML =
               '<strong style="color:#34d399;">✅ WhatsApp disparado por Lead Automator a ' + name + ' (03.8 seg):</strong><br/>' +
               '<em>"¡Hola, ' + name + '! Soy el asistente de Impulso Live Media. Recibí tu registro con <strong>' + filter + '</strong>. Aquí tienes el video recorrido de 40s en 4K y tu <strong>Pase QR VIP Anti-Plantones</strong>. Un Cerrador Senior (Score A) te contactará en &lt;5 minutos."</em>' +
-              '<div style="margin-top:10px;"><a href="https://wa.me/' + OFFICIAL_WA + '?text=' + waText + '" target="_blank" rel="noopener" style="color:#00f2fe; font-weight:800; text-decoration:underline;">📲 Abrir esta conversación en vivo en WhatsApp (56 6744 2715) →</a></div>';
+              '<div style="margin-top:10px;"><a href="https://wa.me/' + OFFICIAL_WA + '?text=' + waText + '" target="_blank" rel="noopener" style="color:#00f2fe; font-weight:800; text-decoration:underline;">📲 Abrir esta conversación en vivo en WhatsApp (333 920 5279) →</a></div>';
           } else {
             outputEl.innerHTML =
               '<strong style="color:#34d399;">✅ WhatsApp disparado por Lead Automator a ' + name + ' (03.8 seg):</strong><br/>' +
               '<em>"¡Hola, ' + name + '! Qué gusto saludarte de Impulso Live Media. Activamos tu solicitud con <strong>' + filter + '</strong>. Aquí tienes tu Pase QR de valoración preferencial y el catálogo interactivo."</em>' +
-              '<div style="margin-top:10px;"><a href="https://wa.me/' + OFFICIAL_WA + '?text=' + waText + '" target="_blank" rel="noopener" style="color:#00f2fe; font-weight:800; text-decoration:underline;">📲 Abrir esta conversación en vivo en WhatsApp (56 6744 2715) →</a></div>';
+              '<div style="margin-top:10px;"><a href="https://wa.me/' + OFFICIAL_WA + '?text=' + waText + '" target="_blank" rel="noopener" style="color:#00f2fe; font-weight:800; text-decoration:underline;">📲 Abrir esta conversación en vivo en WhatsApp (333 920 5279) →</a></div>';
           }
         }
       }, 90);
@@ -515,7 +515,7 @@
       if (callback) callback();
     }
 
-    // 9. Envío de Formularios integrado con Lead Automator + WhatsApp 56 6744 2715
+    // 9. Envío de Formularios integrado con Lead Automator + WhatsApp 333 920 5279
     function handleB2BSubmit(e) {
       e.preventDefault();
       const name = document.getElementById('f1-name').value.trim();
@@ -549,7 +549,7 @@
         `<div><strong>✅ Registro procesado en Lead Automator (${score}):</strong></div>` +
         `<div style="margin-top:4px; color:var(--text-secondary);">Los datos de <strong>${company}</strong> ya están listos en el monitor JSON y estructurados para tu línea oficial.</div>` +
         `<div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:10px;">` +
-        `<a href="${waUrl}" target="_blank" rel="noopener" class="btn btn-whatsapp" style="font-size:0.8rem; padding:8px 14px;">📲 Abrir y Enviar en WhatsApp (56 6744 2715) →</a>` +
+        `<a href="${waUrl}" target="_blank" rel="noopener" class="btn btn-whatsapp" style="font-size:0.8rem; padding:8px 14px;">📲 Abrir y Enviar en WhatsApp (333 920 5279) →</a>` +
         `<button type="button" class="btn btn-ghost" style="font-size:0.78rem; padding:8px 12px;" onclick='copySummaryText(${JSON.stringify(plainText)}, this)'>📋 Copiar mensaje</button>` +
         `</div>`;
     }
@@ -585,7 +585,7 @@
         `<div><strong>🎉 ¡Postulación procesada para ${user} (${routeType})!</strong></div>` +
         `<div style="margin-top:4px; color:var(--text-secondary);">Recuerda tener listo tu código de invitación en <em>TikTok Studio → LIVE → Creator Network Center</em>.</div>` +
         `<div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:10px;">` +
-        `<a href="${waUrl}" target="_blank" rel="noopener" class="btn btn-pink" style="font-size:0.8rem; padding:8px 14px;">📲 Enviar a mi Manager por WhatsApp (56 6744 2715) →</a>` +
+        `<a href="${waUrl}" target="_blank" rel="noopener" class="btn btn-pink" style="font-size:0.8rem; padding:8px 14px;">📲 Enviar a mi Manager por WhatsApp (333 920 5279) →</a>` +
         `<button type="button" class="btn btn-ghost" style="font-size:0.78rem; padding:8px 12px;" onclick='copySummaryText(${JSON.stringify(plainText)}, this)'>📋 Copiar solicitud</button>` +
         `</div>`;
     }
