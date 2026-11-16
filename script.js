@@ -625,7 +625,7 @@ window.addEventListener('DOMContentLoaded', () => revealAnchor(location.hash));
   const context = canvas.getContext('2d', { alpha: true });
   if (!context) { toggle.hidden = true; return; }
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
-  const colors = [[117,242,227], [140,183,255], [200,159,243], [251,124,166]];
+  const colors = [[60,230,221], [119,85,255], [175,151,255], [237,247,255]];
   let saved = 'auto';
   try { saved = localStorage.getItem('impulso-visual-effects') || 'auto'; } catch {}
   let enabled = saved === 'on' || (!reduced.matches && saved !== 'off');
@@ -659,7 +659,17 @@ window.addEventListener('DOMContentLoaded', () => revealAnchor(location.hash));
     previous = now;
     elapsed += .006 * dt;
     context.clearRect(0, 0, width, height);
-    for (const p of points) {
+    for (let i=0; i<points.length; i++) {
+      const p=points[i];
+      // Coordinated orbit, expansion and contraction without a figure-eight path.
+      const phase = elapsed * 1.4;
+      const group = i % 3, angle0 = i * 2.399963 + phase * (group % 2 ? -.8 : .8);
+      const spread = .4 + .6 * (1 + Math.sin(phase + group)) / 2;
+      const radius = Math.min(width,height) * (.10 + .30 * ((i % 31) / 30)) * spread;
+      const centerX = width * (.25 + group * .25) + Math.sin(phase * .6 + group) * width * .1;
+      const centerY = height * (.48 + Math.cos(phase * .45 + group) * .15);
+      p.x += (centerX + Math.cos(angle0)*radius - p.x) * .017 * dt;
+      p.y += (centerY + Math.sin(angle0)*radius - p.y) * .017 * dt;
       // A shared changing vector field keeps the swarm flowing in coordinated ribbons.
       let angle = Math.sin(p.x * .003 + elapsed) * 1.8
         + Math.cos(p.y * .004 - elapsed * .8) * 1.5
@@ -701,7 +711,7 @@ window.addEventListener('DOMContentLoaded', () => revealAnchor(location.hash));
 
   function emitReaction() {
     if (!enabled || document.hidden || reactions.childElementCount >= 8) return;
-    const glyphs = ['♥','♥','♥','✦','♡','💖'];
+    const glyphs = ['❤️','🌹','💎','👑','🚀','🎁','💖'];
     const node = document.createElement('span');
     node.className = 'live-reaction';
     node.style.setProperty('--reaction-left', (22 + Math.random() * 48) + '%');
@@ -768,3 +778,6 @@ window.addEventListener('DOMContentLoaded', () => revealAnchor(location.hash));
   resize();
   sync();
 })();
+
+// Private rehearsal: media stays in this browser, no recording or network transmission.
+(()=>{const $=id=>document.getElementById(id),v=$('il-camera');if(!v)return;let stream=null,request=0,timer=0,started=0,count=0,chatIndex=0;const messages=['Ana · ¡Hola!','Leo · ¿De qué trata tu LIVE?','Mar · Me gusta tu energía','Alex · ¿Puedes contarnos más?','Vale · ¡Sigue así!'];function cameraOff(){request++;if(stream)stream.getTracks().forEach(t=>t.stop());stream=null;v.srcObject=null;v.hidden=true;$('il-placeholder').hidden=false;$('il-status').textContent='Cámara desactivada.';}function stop(){clearInterval(timer);timer=0;cameraOff();$('il-viewers').textContent='0 espectadores';$('il-status').textContent='Ensayo finalizado. Cámara desactivada.';}function gift(g){if(!timer){$('il-status').textContent='Inicia un ensayo para probar regalos.';return;}count++;$('il-count').textContent=String(count);const el=document.createElement('span');el.textContent=g;$('il-gifts').append(el);setTimeout(()=>el.remove(),2400);} $('il-camera-on').onclick=async()=>{if(stream)return;const token=++request;try{if(!navigator.mediaDevices?.getUserMedia)throw Error('unavailable');$('il-status').textContent='Solicitando permiso de cámara…';const media=await navigator.mediaDevices.getUserMedia({video:{facingMode:'user',width:{ideal:720},height:{ideal:1280}},audio:false});if(token!==request){media.getTracks().forEach(t=>t.stop());return;}stream=media;v.srcObject=media;v.hidden=false;$('il-placeholder').hidden=true;$('il-status').textContent='Vista privada activa. No se graba ni transmite.';}catch{if(token===request)$('il-status').textContent='No se pudo activar la cámara. Revisa el permiso del navegador.';}};$('il-camera-off').onclick=cameraOff;$('il-start').onclick=()=>{if(timer)return;started=Date.now();count=0;chatIndex=0;$('il-count').textContent='0';$('il-clock').textContent='00:00';$('il-chat').replaceChildren();$('il-status').textContent='Ensayo activo. Audiencia ficticia.';timer=setInterval(()=>{const sec=Math.floor((Date.now()-started)/1000);$('il-clock').textContent=String(Math.floor(sec/60)).padStart(2,'0')+':'+String(sec%60).padStart(2,'0');$('il-viewers').textContent=(3+sec%17)+' espectadores';if(sec%5===1){const line=document.createElement('div');line.textContent=messages[chatIndex++%messages.length];$('il-chat').append(line);while($('il-chat').children.length>4)$('il-chat').firstElementChild.remove();}},1000);};$('il-stop').onclick=stop;$('il-gift-buttons').addEventListener('click',e=>{const b=e.target.closest('button[data-gift]');if(b)gift(b.dataset.gift);});window.addEventListener('pagehide',stop);document.addEventListener('visibilitychange',()=>{if(document.hidden)stop();});const keys=['il-date','il-topic','il-goal','il-done'];function progress(){const p=$('il-progress');p.max=Math.max(1,Number($('il-goal').value)||1);p.value=Math.max(0,Number($('il-done').value)||0);}try{const saved=JSON.parse(localStorage.getItem('impulso-local-plan')||'{}');keys.forEach(k=>{if(typeof saved[k]==='string')$(k).value=saved[k];});}catch{}keys.forEach(k=>$(k).addEventListener('input',progress));progress();$('il-save').onclick=()=>{try{localStorage.setItem('impulso-local-plan',JSON.stringify(Object.fromEntries(keys.map(k=>[k,$(k).value]))));$('il-save-status').textContent='Plan guardado en este navegador.';}catch{$('il-save-status').textContent='No se pudo guardar el plan.';}};})();
