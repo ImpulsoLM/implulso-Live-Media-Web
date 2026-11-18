@@ -33,16 +33,22 @@ function renderPlans(plans){
  }
 }
 async function refresh(){
- const {profile,leads,plans}=await api('list');el('access').hidden=true;el('account').hidden=false;el('title').textContent=profile.name+' · '+profile.sector;
+ const {profile,leads,plans,campaigns}=await api('list');el('access').hidden=true;el('account').hidden=false;el('title').textContent=profile.name+' · '+profile.sector;
  if(sector!==profile.sector){sector=profile.sector;newPlan()}renderPlans(plans);
+ el('campaigns').replaceChildren();
+ for(const c of campaigns){
+ const card=document.createElement('article'),title=document.createElement('strong');title.textContent=c.title+' · '+c.channel;card.append(title);
+ if(c.active){const link=document.createElement('a'),pause=document.createElement('button');link.href='/solicitud.html?c='+c.link;link.textContent='Abrir formulario';link.target='_blank';link.rel='noopener';pause.textContent='Desactivar enlace';pause.onclick=async()=>{try{await api('pause',{token:c.token});await refresh()}catch(e){el('status').textContent=e.message}};card.append(' · ',link,' ',pause)}else card.append(' · Desactivado');
+ el('campaigns').append(card);
+ }
  el('list').replaceChildren();
  for(const item of leads.sort((a,b)=>a.next.localeCompare(b.next))){
  const card=document.createElement('article'),title=document.createElement('strong'),desc=document.createElement('p'),button=document.createElement('button');
- title.textContent=item.name+' · '+item.stage;desc.textContent=[item.channel,item.campaign,item.goal,item.next,item.task].filter(Boolean).join(' · ');
+ title.textContent=item.name+' · '+item.stage;desc.textContent=[item.contact,item.channel,item.campaign,item.goal,item.next,item.task].filter(Boolean).join(' · ');
  button.textContent='Actualizar seguimiento';button.onclick=()=>{for(const [k,v] of Object.entries(item))el('lead').elements.namedItem(k).value=v;el('lead').scrollIntoView()};card.append(title,desc,button);el('list').append(card);
  }if(!leads.length)el('list').textContent='Todavía no hay prospectos en tu cartera.';
 }
-for(const action of ['create','login','lead','plan','assist'])el(action).onsubmit=async event=>{
+for(const action of ['create','login','lead','plan','campaign','assist'])el(action).onsubmit=async event=>{
  event.preventDefault();const form=event.currentTarget,btn=event.submitter;btn.disabled=true;
  try{const result=await api(action==='lead'?'save':action,Object.fromEntries(new FormData(form)));
  if(action==='assist')el('answer').textContent=result.answer;else{

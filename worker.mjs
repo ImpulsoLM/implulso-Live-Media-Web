@@ -9,7 +9,8 @@ async function digest(value) {
 const cookie=(key,age)=>({'Set-Cookie':'__Host-ilm='+key+'; Path=/; Secure; HttpOnly; SameSite=Strict; Max-Age='+age});
 export default {async fetch(req,env){
   const url=new URL(req.url);
-  if(!url.pathname.startsWith('/api/private/'))return env.ASSETS.fetch(req);
+  const publicRoute=url.pathname==='/api/campana';
+  if(!publicRoute&&!url.pathname.startsWith('/api/private/'))return env.ASSETS.fetch(req);
   const action=url.pathname.slice('/api/private/'.length);
   if(req.method!=='POST'||req.headers.get('Origin')!==url.origin)return json({},403);
   if(!req.headers.get('Content-Type')?.startsWith('application/json'))return json({},415);
@@ -17,12 +18,20 @@ export default {async fetch(req,env){
   if(raw.length>5000)return json({},413);
   let input;try{input=JSON.parse(raw)}catch{return json({},400)}
   if(!input||typeof input!=='object')return json({},400);
+  if(publicRoute){
+    const match=typeof input.link==='string' && /^([0-9a-f]{64})[.]([0-9a-f-]{36})$/.exec(input.link);
+    if(!match)return json({},404);
+    let id;try{id=env.PORTFOLIOS.idFromString(match[1])}catch{return json({},404)}
+    const operation=input.submit===true?'receive':'describe';
+    return env.PORTFOLIOS.get(id).fetch('https://internal/'+operation,{method:'POST',body:JSON.stringify({...input,token:match[2]})});
+  }
+  if(!['create','login','logout','plan','list','save','assist','campaign','pause'].includes(action))return json({},404);
   if(action==='logout')return json({ok:true},200,cookie('',0));
   const key=action==='create'?randomKey():action==='login'?input.key:req.headers.get('Cookie')?.match(/(?:^|; )__Host-ilm=([0-9a-f]{64})(?:;|$)/)?.[1];
   if(typeof key!=='string'||!/^[0-9a-f]{64}$/.test(key))return json({},401);
   const id=env.PORTFOLIOS.idFromName(await digest(key));
   const obj=env.PORTFOLIOS.get(id);
-  const result=await obj.fetch('https://internal/'+action,{method:'POST',body:JSON.stringify(input)});
+  const result=await obj.fetch('https://internal/'+action,{method:'POST',body:JSON.stringify({...input,portfolio:id.toString()})});
   if(result.ok&&['create','login'].includes(action))return json(action==='create'?{key}:{ok:true},200,cookie(key,86400));
   return result;
 }};
@@ -31,6 +40,8 @@ export class Portfolio {
  this.db.exec('CREATE TABLE IF NOT EXISTS profile(name TEXT, sector TEXT)');
  this.db.exec('CREATE TABLE IF NOT EXISTS lead(id TEXT PRIMARY KEY, content TEXT)');
  this.db.exec('CREATE TABLE IF NOT EXISTS plan(id TEXT PRIMARY KEY, content TEXT)');
+ this.db.exec('CREATE TABLE IF NOT EXISTS campaign(token TEXT PRIMARY KEY, title TEXT, channel TEXT, active INTEGER)');
+ this.db.exec('CREATE TABLE IF NOT EXISTS receipt(token TEXT, submission TEXT, PRIMARY KEY(token,submission))');
  this.db.exec('CREATE TABLE IF NOT EXISTS usage(day TEXT PRIMARY KEY, calls INTEGER)');
  }
  async fetch(req){
@@ -43,6 +54,28 @@ export class Portfolio {
  this.db.exec('INSERT INTO profile VALUES(?,?)',name,sector);return json({ok:true});
  }
  if(!profile)return json({},401);
+ if(action==='campaign'){
+ const title=str('title',100),channel=str('channel',30);
+ if(!title||!['Meta Ads','TikTok Ads','TikTok LIVE','Otro'].includes(channel))return json({},400);
+ this.db.exec('INSERT INTO campaign VALUES(?,?,?,1)',crypto.randomUUID(),title,channel);return json({ok:true});
+ }
+ if(action==='pause'){this.db.exec('UPDATE campaign SET active=0 WHERE token=?',str('token',36));return json({ok:true})}
+ if(action==='describe'||action==='receive'){
+ const token=str('token',36),campaign=this.db.exec('SELECT * FROM campaign WHERE token=? AND active=1',token).toArray()[0];
+ if(!campaign)return json({},404);
+ if(action==='describe')return json({title:campaign.title,owner:profile.name});
+ const name=str('name',100),contact=str('contact',160),submission=str('submission',36);
+ if(!name||!contact||input.consent!==true||!/^[0-9a-f-]{36}$/.test(submission))return json({},400);
+ if(!this.db.exec('SELECT 1 FROM receipt WHERE token=? AND submission=?',token,submission).toArray().length){
+ const bucket=token+':'+Math.floor(Date.now()/3600000);
+ if((this.db.exec('SELECT calls FROM usage WHERE day=?',bucket).toArray()[0]?.calls||0)>=60)return json({},429);
+ this.db.exec('INSERT INTO usage VALUES(?,1) ON CONFLICT(day) DO UPDATE SET calls=calls+1',bucket);
+ const id=crypto.randomUUID(),today=new Intl.DateTimeFormat('en-CA',{timeZone:'America/Mexico_City'}).format(new Date());
+ const lead={id,name,contact,campaign:campaign.title,channel:campaign.channel,stage:'Pendiente',goal:'Atender solicitud',task:'Responder por el medio autorizado',next:today};
+ this.db.exec('INSERT INTO lead VALUES(?,?)',id,JSON.stringify(lead));this.db.exec('INSERT INTO receipt VALUES(?,?)',token,submission);
+ }
+ return json({ok:true});
+ }
  if(action==='login')return json({ok:true});
  if(action==='plan'){
  const service=services.find(item=>item.id===str('service',40));
@@ -52,9 +85,9 @@ export class Portfolio {
  const plan={id:id||crypto.randomUUID(),service:service.id,date,task,target,result};
  this.db.exec('INSERT OR REPLACE INTO plan VALUES(?,?)',plan.id,JSON.stringify(plan));return json({ok:true});
  }
- if(action==='list')return json({profile,plans:this.db.exec('SELECT content FROM plan').toArray().map(r=>JSON.parse(r.content)),leads:this.db.exec('SELECT content FROM lead ORDER BY rowid DESC').toArray().map(r=>JSON.parse(r.content))});
+ if(action==='list')return json({profile,campaigns:this.db.exec('SELECT * FROM campaign ORDER BY rowid DESC').toArray().map(c=>({...c,link:input.portfolio+'.'+c.token})),plans:this.db.exec('SELECT content FROM plan').toArray().map(r=>JSON.parse(r.content)),leads:this.db.exec('SELECT content FROM lead ORDER BY rowid DESC').toArray().map(r=>JSON.parse(r.content))});
  if(action==='save'){
- const lead=Object.fromEntries(['name','campaign','goal','next','task','stage','channel'].map(k=>[k,str(k,180)]));
+ const lead=Object.fromEntries(['name','contact','campaign','goal','next','task','stage','channel'].map(k=>[k,str(k,180)]));
  if(!lead.name||!lead.goal||!lead.task||!/^\d{4}-\d{2}-\d{2}$/.test(lead.next))return json({},400);
  const id=str('id',40);
  if(id&&!this.db.exec('SELECT id FROM lead WHERE id=?',id).toArray().length)return json({},404);
