@@ -1,3 +1,4 @@
+import {services} from './servicios.js';
 const headers = {'Cache-Control':'no-store','X-Content-Type-Options':'nosniff'};
 const json = (data,status=200,extra={}) => Response.json(data,{status,headers:{...headers,...extra}});
 const randomKey = () => Array.from(crypto.getRandomValues(new Uint8Array(32)),b=>b.toString(16).padStart(2,'0')).join('');
@@ -29,6 +30,7 @@ export class Portfolio {
  constructor(ctx,env){this.db=ctx.storage.sql;this.env=env;
  this.db.exec('CREATE TABLE IF NOT EXISTS profile(name TEXT, sector TEXT)');
  this.db.exec('CREATE TABLE IF NOT EXISTS lead(id TEXT PRIMARY KEY, content TEXT)');
+ this.db.exec('CREATE TABLE IF NOT EXISTS plan(id TEXT PRIMARY KEY, content TEXT)');
  this.db.exec('CREATE TABLE IF NOT EXISTS usage(day TEXT PRIMARY KEY, calls INTEGER)');
  }
  async fetch(req){
@@ -37,12 +39,20 @@ export class Portfolio {
  const profile=this.db.exec('SELECT * FROM profile LIMIT 1').toArray()[0];
  if(action==='create'){
  const name=str('name',100),sector=str('sector',30);
- if(profile||!name||!['Inmobiliaria','Negocio'].includes(sector))return json({},400);
+ if(profile||!name||!['Inmobiliaria','Negocio','Creador LIVE'].includes(sector))return json({},400);
  this.db.exec('INSERT INTO profile VALUES(?,?)',name,sector);return json({ok:true});
  }
  if(!profile)return json({},401);
  if(action==='login')return json({ok:true});
- if(action==='list')return json({profile,leads:this.db.exec('SELECT content FROM lead ORDER BY rowid DESC').toArray().map(r=>JSON.parse(r.content))});
+ if(action==='plan'){
+ const service=services.find(item=>item.id===str('service',40));
+ const date=str('date',10), task=str('task',250), result=str('result',8), target=str('target',8), id=str('id',40);
+ if(!service||!task||!/^\d{4}-\d{2}-\d{2}$/.test(date)||!/^\d{1,7}$/.test(target)||Number(target)<1||(result&&!/^\d{1,7}$/.test(result)))return json({},400);
+ if(id&&!this.db.exec('SELECT id FROM plan WHERE id=?',id).toArray().length)return json({},404);
+ const plan={id:id||crypto.randomUUID(),service:service.id,date,task,target,result};
+ this.db.exec('INSERT OR REPLACE INTO plan VALUES(?,?)',plan.id,JSON.stringify(plan));return json({ok:true});
+ }
+ if(action==='list')return json({profile,plans:this.db.exec('SELECT content FROM plan').toArray().map(r=>JSON.parse(r.content)),leads:this.db.exec('SELECT content FROM lead ORDER BY rowid DESC').toArray().map(r=>JSON.parse(r.content))});
  if(action==='save'){
  const lead=Object.fromEntries(['name','campaign','goal','next','task','stage','channel'].map(k=>[k,str(k,180)]));
  if(!lead.name||!lead.goal||!lead.task||!/^\d{4}-\d{2}-\d{2}$/.test(lead.next))return json({},400);

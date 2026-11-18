@@ -1,0 +1,8 @@
+export const services = [
+ {id:'primer-live', name:'Preparación del primer LIVE', audience:'Creador LIVE', deliverable:'Ensayo con cámara, apertura de 30 segundos y tres preguntas para cuando el chat esté tranquilo.', next:'Ensayar la apertura y anotar qué pregunta generó conversación.', metric:'Personas que comentaron'},
+ {id:'moderacion', name:'Moderación y comunidad', audience:'Creador LIVE', deliverable:'Acuerdo de moderación, filtro de comentarios y reparto de tareas para la transmisión.', next:'Acordar con el moderador qué responder, filtrar o escalar.', metric:'Incidencias atendidas'},
+ {id:'clips', name:'Clips de una transmisión', audience:'Creador LIVE', deliverable:'Selección de tres momentos de una repetición autorizada y propuesta de gancho para cada clip.', next:'Elegir el fragmento que mejor responde una pregunta del público.', metric:'Clips publicados'},
+ {id:'colaboracion', name:'Colaboración entre creador y negocio', audience:'Todos', deliverable:'Propuesta de colaboración con audiencia, entregables, fechas y forma de medir consultas.', next:'Preparar una propuesta para un negocio afín a la audiencia.', metric:'Propuestas aceptadas'},
+ {id:'visita', name:'Recorrido inmobiliario en vivo', audience:'Inmobiliaria', deliverable:'Guion por espacios, preguntas de calificación y seguimiento de las solicitudes de visita.', next:'Elegir una propiedad y definir cómo se reservará la visita.', metric:'Visitas agendadas'},
+ {id:'consultas', name:'Seguimiento de anuncios', audience:'Negocio', deliverable:'Revisión del formulario, clasificación de prospectos y calendario de contacto por campaña.', next:'Elegir un anuncio y revisar las consultas pendientes de respuesta.', metric:'Consultas convertidas en citas'}
+];
