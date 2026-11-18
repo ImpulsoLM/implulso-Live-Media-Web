@@ -56,7 +56,7 @@ export class Portfolio {
  const day=new Date().toISOString().slice(0,10);
  if((this.db.exec('SELECT calls FROM usage WHERE day=?',day).toArray()[0]?.calls||0)>=10)return json({message:'Límite diario de 10 consultas alcanzado.'},429);
  this.db.exec('INSERT INTO usage VALUES(?,1) ON CONFLICT(day) DO UPDATE SET calls=calls+1',day);
- try{const out=await this.env.AI.run('@cf/meta/llama-3.1-8b-instruct',{messages:[{role:'system',content:'Eres asesor comercial de Impulso Live Media en México. Responde en español con acciones concretas para '+profile.sector+'. Nunca afirmes haber enviado mensajes o modificado campañas.'},{role:'user',content:question}],max_tokens:380});return json({answer:out.response});}catch{return json({message:'La IA está temporalmente fuera de servicio.'},503)}
+ try{const out=await this.env.AI.run('@cf/meta/llama-3.1-8b-instruct-fast',{messages:[{role:'system',content:'Eres asesor comercial de Impulso Live Media en México. Responde en español con acciones concretas para '+profile.sector+'. Nunca afirmes haber enviado mensajes o modificado campañas.'},{role:'user',content:question}],max_tokens:380});return json({answer:out.response});}catch{return json({message:'La IA está temporalmente fuera de servicio.'},503)}
  }
  return json({},404);
  }}
