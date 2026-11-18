@@ -11,7 +11,16 @@ export default {async fetch(req,env){
   const url=new URL(req.url);
   const publicRoute=url.pathname==='/api/campana';
   if(!publicRoute&&!url.pathname.startsWith('/api/private/'))return env.ASSETS.fetch(req);
-  const action=url.pathname.slice('/api/private/'.length);
+  let action=url.pathname.slice('/api/private/'.length);
+  if(action==='create')return json({},403);
+  if(action==='admin'){
+    if(!env.CRM_ADMIN_SECRET)return json({error:'Panel pendiente de configuración'},503);
+    const expected='Basic '+btoa('admin:'+env.CRM_ADMIN_SECRET);
+    if(await digest(req.headers.get('Authorization')||'')!==await digest(expected))
+      return json({},401,{'WWW-Authenticate':'Basic realm="Admin CRM", charset="UTF-8"'});
+    if(req.method==='GET')return new Response("<!doctype html><html lang=\"es\"><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><title>Accesos al CRM</title><main><h1>Conceder acceso al CRM</h1><form><label>Nombre profesional <input name=\"name\" required maxlength=\"100\"></label><label>Actividad <select name=\"sector\"><option>Inmobiliaria</option><option>Negocio</option><option>Creador LIVE</option></select></label><button>Generar acceso</button></form><p role=\"status\"></p><a href=\"/privado.html\">Entrada de clientes</a></main><script>document.querySelector('form').onsubmit=async function(e){e.preventDefault();const status=document.querySelector('[role=status]');this.querySelector('button').disabled=true;try{const r=await fetch(location.pathname,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(Object.fromEntries(new FormData(this)))});if(!r.ok)throw Error();status.textContent='Entrega esta clave personalmente al titular: '+(await r.json()).key;this.reset()}catch{status.textContent='No se pudo generar la clave.'}finally{this.querySelector('button').disabled=false}}</script></html>",{headers:{...headers,'Content-Type':'text/html; charset=utf-8','X-Frame-Options':'DENY'}});
+    action='create';
+  }
   if(req.method!=='POST'||req.headers.get('Origin')!==url.origin)return json({},403);
   if(!req.headers.get('Content-Type')?.startsWith('application/json'))return json({},415);
   const raw=await req.text();
@@ -32,7 +41,8 @@ export default {async fetch(req,env){
   const id=env.PORTFOLIOS.idFromName(await digest(key));
   const obj=env.PORTFOLIOS.get(id);
   const result=await obj.fetch('https://internal/'+action,{method:'POST',body:JSON.stringify({...input,portfolio:id.toString()})});
-  if(result.ok&&['create','login'].includes(action))return json(action==='create'?{key}:{ok:true},200,cookie(key,86400));
+  if(result.ok&&action==='create')return json({key});
+  if(result.ok&&action==='login')return json({ok:true},200,cookie(key,86400));
   return result;
 }};
 export class Portfolio {
