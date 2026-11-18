@@ -10,7 +10,32 @@ const cookie=(key,age)=>({'Set-Cookie':'__Host-ilm='+key+'; Path=/; Secure; Http
 export default {async fetch(req,env){
   const url=new URL(req.url);
   const publicRoute=url.pathname==='/api/campana';
-  if(!publicRoute&&!url.pathname.startsWith('/api/private/'))return env.ASSETS.fetch(req);
+  if(!publicRoute&&!url.pathname.startsWith('/api/private/')){
+    const publicFiles=['/contacto','/contacto.html','/privacidad','/privacidad.html','/solicitud','/solicitud.html','/solicitud.js'];
+    if(publicFiles.includes(url.pathname))return env.ASSETS.fetch(req);
+    const key=req.headers.get('Cookie')?.match(/(?:^|; )__Host-ilm=([0-9a-f]{64})(?:;|$)/)?.[1];
+    let scope;
+    if(key){
+      scope=await digest(key);
+      const account=env.PORTFOLIOS.get(env.PORTFOLIOS.idFromName(scope));
+      const check=await account.fetch('https://internal/login',{method:'POST',body:'{}'});
+      if(!check.ok)scope=null;
+    }
+    if(!scope){
+      if(req.method==='GET' && ['/', '/index','/index.html','/servicios','/servicios.html','/privado','/privado.html'].includes(url.pathname))
+        return new Response("<!doctype html><html lang=\"es\"><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><title>Impulso Live Media · Centro de trabajo</title><style>body{margin:0;background:#100e1b;color:#faf7ff;font:17px/1.55 system-ui}main{max-width:780px;margin:auto;padding:8vh 6vw}h1{font-size:clamp(2.5rem,7vw,4.5rem);line-height:1.02}section{background:#211d32;padding:24px;border-radius:16px}li{margin:.6em 0}input,button{font:inherit;padding:.6em;max-width:90%}a{color:#92e5ed}</style><main><p>IMPULSO LIVE MEDIA</p><h1>Centro de trabajo para negocios y creadores</h1><ul><li><b>CRM personal.</b> Organiza prospectos y programa seguimientos.</li><li><b>Noticias y Academia.</b> Consulta novedades de TikTok LIVE y practica con lecciones.</li><li><b>Meta y publicidad.</b> Planifica contenido y campañas.</li><li><b>Ideas y guiones.</b> Prepara aperturas, narraciones y cierres para tus videos y lives.</li></ul><section><h2>Entrar al centro privado</h2><p>Usa la clave personal que te entregó Impulso Live Media.</p><form><label>Clave personal <input type=\"password\" required autocomplete=\"current-password\" name=\"key\"></label> <button>Entrar</button></form><p role=\"status\"></p></section><p><a href=\"/contacto.html\">Contactar a la agencia</a></p></main><script>document.querySelector('form').onsubmit=async function(e){e.preventDefault();try{const r=await fetch('/api/private/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({key:this.elements.key.value.trim()})});if(!r.ok)throw Error();location.replace('/')}catch{document.querySelector('[role=status]').textContent='No se pudo iniciar sesión. Revisa tu clave o contacta a la agencia.'}}</script></html>",{headers:{...headers,'Content-Type':'text/html; charset=utf-8'}});
+      return json({error:'Acceso privado'},401);
+    }
+    const asset=await env.ASSETS.fetch(req);
+    const response=new Response(asset.body,asset);
+    response.headers.set('Cache-Control','private, no-store');
+    if(asset.ok && response.headers.get('Content-Type')?.includes('text/html') && ['/','/index','/index.html'].includes(url.pathname)){
+      const page=(await response.text()).replaceAll('impulso-studio-v1','impulso-studio-v1-'+scope).replaceAll('impulso-academy-read','impulso-academy-read-'+scope);
+      response.headers.delete('Content-Length');
+      return new Response(page,response);
+    }
+    return response;
+  }
   let action=url.pathname.slice('/api/private/'.length);
   if(action==='create')return json({},403);
   if(action==='admin'){
