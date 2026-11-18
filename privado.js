@@ -48,11 +48,10 @@ async function refresh(){
  button.textContent='Actualizar seguimiento';button.onclick=()=>{for(const [k,v] of Object.entries(item))el('lead').elements.namedItem(k).value=v;el('lead').scrollIntoView()};card.append(title,desc,button);el('list').append(card);
  }if(!leads.length)el('list').textContent='Todavía no hay prospectos en tu cartera.';
 }
-for(const action of ['create','login','lead','plan','campaign','assist'])el(action).onsubmit=async event=>{
+for(const action of ['login','lead','plan','campaign','assist'])el(action).onsubmit=async event=>{
  event.preventDefault();const form=event.currentTarget,btn=event.submitter;btn.disabled=true;
  try{const result=await api(action==='lead'?'save':action,Object.fromEntries(new FormData(form)));
  if(action==='assist')el('answer').textContent=result.answer;else{
- if(action==='create'){el('secret').textContent=result.key;el('recovery').hidden=false}
  form.reset();if(action==='plan')newPlan();await refresh()}el('status').textContent=action==='lead'?'Seguimiento guardado.':action==='plan'?'Plan guardado.':'';
  }catch(error){el('status').textContent=error.message}finally{btn.disabled=false}
 };
