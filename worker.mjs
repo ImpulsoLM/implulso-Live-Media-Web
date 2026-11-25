@@ -9,6 +9,7 @@ async function digest(value) {
 const cookie=(key,age)=>({'Set-Cookie':'__Host-ilm='+key+'; Path=/; Secure; HttpOnly; SameSite=Strict; Max-Age='+age});
 export default {async fetch(req,env){
   const url=new URL(req.url);
+  if(['/api/private/live-control','/api/live-state','/live-overlay'].includes(url.pathname))return liveControl(req,env,url);
   const publicRoute=url.pathname==='/api/campana';
   if(!publicRoute&&!url.pathname.startsWith('/api/private/')){
     const publicFiles=['/contacto','/contacto.html','/privacidad','/privacidad.html','/solicitud','/solicitud.html','/solicitud.js','/impulso-logo.jpg','/news-seed.json','/portada','/portada.html'];
@@ -47,7 +48,7 @@ export default {async fetch(req,env){
     const expected='Basic '+btoa('admin:'+env.CRM_ADMIN_SECRET);
     if(await digest(req.headers.get('Authorization')||'')!==await digest(expected))
       return json({},401,{'WWW-Authenticate':'Basic realm="Admin CRM", charset="UTF-8"'});
-    if(req.method==='GET')return new Response("<!doctype html><html lang=\"es\"><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><title>Accesos al CRM</title><main><h1>Conceder acceso al CRM</h1><form><label>Nombre profesional <input name=\"name\" required maxlength=\"100\"></label><label>Actividad <select name=\"sector\"><option>Inmobiliaria</option><option>Negocio</option><option>Creador LIVE</option></select></label><button>Generar acceso</button></form><p role=\"status\"></p><a href=\"/privado.html\">Entrada de clientes</a></main><script>document.querySelector('form').onsubmit=async function(e){e.preventDefault();const status=document.querySelector('[role=status]');this.querySelector('button').disabled=true;try{const r=await fetch(location.pathname,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(Object.fromEntries(new FormData(this)))});if(!r.ok)throw Error();status.textContent='Entrega esta clave personalmente al titular: '+(await r.json()).key;this.reset()}catch{status.textContent='No se pudo generar la clave.'}finally{this.querySelector('button').disabled=false}}</script></html>",{headers:{...headers,'Content-Type':'text/html; charset=utf-8','X-Frame-Options':'DENY'}});
+    if(req.method==='GET')return new Response("<!doctype html><html lang=\"es\"><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><title>Accesos al CRM</title><main><h1>Conceder acceso al CRM</h1><p><a href=\"/api/private/live-control\">Impulso LIVE Control</a></p><form><label>Nombre profesional <input name=\"name\" required maxlength=\"100\"></label><label>Actividad <select name=\"sector\"><option>Inmobiliaria</option><option>Negocio</option><option>Creador LIVE</option></select></label><button>Generar acceso</button></form><p role=\"status\"></p><a href=\"/privado.html\">Entrada de clientes</a></main><script>document.querySelector('form').onsubmit=async function(e){e.preventDefault();const status=document.querySelector('[role=status]');this.querySelector('button').disabled=true;try{const r=await fetch(location.pathname,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(Object.fromEntries(new FormData(this)))});if(!r.ok)throw Error();status.textContent='Entrega esta clave personalmente al titular: '+(await r.json()).key;this.reset()}catch{status.textContent='No se pudo generar la clave.'}finally{this.querySelector('button').disabled=false}}</script></html>",{headers:{...headers,'Content-Type':'text/html; charset=utf-8','X-Frame-Options':'DENY'}});
     action='create';
   }
   if(req.method!=='POST'||req.headers.get('Origin')!==url.origin)return json({},403);
@@ -76,6 +77,7 @@ export default {async fetch(req,env){
 }};
 export class Portfolio {
  constructor(ctx,env){this.db=ctx.storage.sql;this.env=env;
+ this.db.exec('CREATE TABLE IF NOT EXISTS live_state(id INTEGER PRIMARY KEY, content TEXT)');
  this.db.exec('CREATE TABLE IF NOT EXISTS profile(name TEXT, sector TEXT)');
  this.db.exec('CREATE TABLE IF NOT EXISTS lead(id TEXT PRIMARY KEY, content TEXT)');
  this.db.exec('CREATE TABLE IF NOT EXISTS plan(id TEXT PRIMARY KEY, content TEXT)');
@@ -85,6 +87,8 @@ export class Portfolio {
  }
  async fetch(req){
  const action=new URL(req.url).pathname.slice(1), input=await req.json();
+ if(action==='live-set'){this.db.exec('INSERT OR REPLACE INTO live_state VALUES(1,?)',JSON.stringify(input));return json({ok:true});}
+ if(action==='live-get'){const row=this.db.exec('SELECT content FROM live_state WHERE id=1').toArray()[0];return json(row?JSON.parse(row.content):{mode:'hidden'});}
  const str=(k,max)=>typeof input[k]==='string'?input[k].trim().slice(0,max):'';
  const profile=this.db.exec('SELECT * FROM profile LIMIT 1').toArray()[0];
  if(action==='create'){
@@ -142,3 +146,21 @@ export class Portfolio {
  }
  return json({},404);
  }}
+
+async function liveControl(req,env,url){
+ const p=url.pathname, token=url.searchParams.get('token')||'';
+ const admin=p==='/api/private/live-control';
+ if(admin){
+ if(!env.CRM_ADMIN_SECRET)return json({},503);
+ if(await digest(req.headers.get('Authorization')||'')!==await digest('Basic '+btoa('admin:'+env.CRM_ADMIN_SECRET)))return json({},401,{'WWW-Authenticate':'Basic realm="LIVE Control"'});
+ if(req.method==='GET')return new Response(`<!doctype html><html lang="es"><meta charset="utf-8"><title>Impulso LIVE Control</title><style>body{background:#151025;color:#eee;font:18px system-ui;padding:30px}input,select,button{padding:10px;margin:5px}a{color:cyan}</style><h1>Impulso LIVE Control</h1><button id="new">Nuevo canal</button><p><input id="key" placeholder="Token del canal" size="65"></p><p><a id="link"></a></p><select id="mode"><option value="hidden">Ocultar</option><option value="message">Mensaje / reto</option><option value="timer">Cronómetro</option><option value="score">Marcador</option><option value="frame">Marco</option><option value="roulette">Ruleta</option></select><input id="msg" placeholder="Texto / opciones separadas por |"><input id="num" type="number" min="0" max="3600" value="60"><button id="send">Publicar dinámica</button><p id="status"></p><iframe id="preview" width="360" height="640"></iframe><script>const q=id=>document.getElementById(id);function link(){const u=location.origin+'/live-overlay?token='+encodeURIComponent(q('key').value);q('link').href=u;q('link').textContent=u;q('preview').src=u}q('new').onclick=()=>{q('key').value=Array.from(crypto.getRandomValues(new Uint8Array(32)),b=>b.toString(16).padStart(2,'0')).join('');link()};q('key').onchange=link;q('send').onclick=async()=>{try{let text=q('msg').value;if(q('mode').value==='roulette'){const opts=text.split('|').filter(x=>x.trim());text=opts[Math.floor(Math.random()*opts.length)]||''}const r=await fetch(location.pathname,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({token:q('key').value,mode:q('mode').value,text,number:Number(q('num').value)})});q('status').textContent=r.ok?'Publicado':'Error '+r.status}catch{q('status').textContent='Error de conexión'}};</script></html>`,{headers:{...headers,'Content-Type':'text/html; charset=utf-8','X-Frame-Options':'DENY','Referrer-Policy':'no-referrer'}});
+ if(req.method!=='POST'||req.headers.get('Origin')!==url.origin)return json({},403);
+ let data;try{data=JSON.parse(await req.text())}catch{return json({},400)}
+ if(!data||typeof data.token!=='string'||! /^[a-f0-9]{64}$/.test(data.token)||!['hidden','message','timer','score','frame','roulette'].includes(data.mode))return json({},400);
+ const state={mode:data.mode,text:String(data.text||'').slice(0,300),number:Math.max(0,Math.min(3600,Number(data.number)||0)),updated:Date.now()};
+ return env.PORTFOLIOS.get(env.PORTFOLIOS.idFromName('live:'+await digest(data.token))).fetch('https://internal/live-set',{method:'POST',body:JSON.stringify(state)});
+ }
+ if(req.method!=='GET'||! /^[a-f0-9]{64}$/.test(token))return json({},404);
+ if(p==='/api/live-state')return env.PORTFOLIOS.get(env.PORTFOLIOS.idFromName('live:'+await digest(token))).fetch('https://internal/live-get',{method:'POST',body:'{}'});
+ return new Response(`<!doctype html><html><meta charset="utf-8"><style>body{margin:0;background:transparent;color:white;font:bold 6vw system-ui;text-shadow:0 2px 5px black}#out{position:fixed;bottom:12%;left:5%;right:5%;text-align:center;background:#29134cdd;border:3px solid cyan;border-radius:20px;padding:12px;overflow-wrap:anywhere}#frame{position:fixed;inset:8px;border:6px solid #a855f7;box-shadow:inset 0 0 18px cyan;border-radius:24px;pointer-events:none}</style><div id="frame" hidden></div><div id="out" hidden></div><script>let s={mode:'hidden'},last=0;const out=document.getElementById('out'),frame=document.getElementById('frame');async function poll(){try{const r=await fetch('/api/live-state'+location.search,{cache:'no-store'});if(r.ok){s=await r.json();last=Date.now()}}catch{} }function draw(){const mode=Date.now()-last>15000?'hidden':s.mode;frame.hidden=mode!=='frame';out.hidden=['hidden','frame'].includes(mode);out.textContent=mode==='timer'?Math.max(0,Math.ceil(s.number-(Date.now()-s.updated)/1000))+' s':mode==='score'?s.text+' '+s.number:s.text||''}poll();setInterval(poll,5000);setInterval(draw,250);</script></html>`,{headers:{...headers,'Content-Type':'text/html; charset=utf-8','Referrer-Policy':'no-referrer'}});
+}
